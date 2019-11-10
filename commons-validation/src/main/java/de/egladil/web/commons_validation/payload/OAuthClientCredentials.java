@@ -7,6 +7,7 @@ package de.egladil.web.commons_validation.payload;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import de.egladil.web.commons_validation.SecUtils;
 import de.egladil.web.commons_validation.annotations.ClientId;
 import de.egladil.web.commons_validation.annotations.UuidString;
 
@@ -67,6 +68,12 @@ public class OAuthClientCredentials {
 	public void setNonce(final String nonce) {
 
 		this.nonce = nonce;
+	}
+
+	public void clean() {
+
+		clientId = SecUtils.wipe(clientId);
+		clientSecret = SecUtils.wipe(clientSecret);
 	}
 
 }

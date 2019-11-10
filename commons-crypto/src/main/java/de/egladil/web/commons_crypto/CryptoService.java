@@ -54,7 +54,7 @@ public interface CryptoService {
 	 *                  die verwendeten Zeichen. Muss Mindestlänge 26 haben.
 	 * @return          String
 	 */
-	public String generateKuerzel(final int length, final char[] charPool);
+	String generateKuerzel(final int length, final char[] charPool);
 
 	/**
 	 * Generiert einen Zufallsstring der geforderten Länge aus der gegebenen Zeichenmenge.
@@ -85,5 +85,12 @@ public interface CryptoService {
 	 * @return
 	 */
 	char[] generateSalt(final int saltLengthBits);
+
+	/**
+	 * Erzeugt eine SessionID
+	 *
+	 * @return      String
+	 */
+	String generateSessionId();
 
 }
