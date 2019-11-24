@@ -100,7 +100,7 @@ public final class CommonHttpUtils {
 
 		if (sessionIdHeader == null) {
 
-			LOG.debug("{} dev: Request ohne Authorization-Header", requestContext.getUriInfo());
+			LOG.debug("{} dev: Request ohne SessonID-Header", requestContext.getUriInfo());
 
 			return null;
 		}
@@ -110,7 +110,7 @@ public final class CommonHttpUtils {
 
 	}
 
-	public static NewCookie createSessionInvalidatedCookie(final String domain) {
+	public static NewCookie createSessionInvalidatedCookie() {
 
 		long dateInThePast = CommonTimeUtils.now().minus(10, ChronoUnit.YEARS).toEpochSecond(ZoneOffset.UTC);
 
@@ -118,7 +118,7 @@ public final class CommonHttpUtils {
 		NewCookie invalidationCookie = new NewCookie(CommonHttpUtils.NAME_SESSIONID_COOKIE,
 			null,
 			null,
-			domain,
+			null,
 			1,
 			null,
 			0,
