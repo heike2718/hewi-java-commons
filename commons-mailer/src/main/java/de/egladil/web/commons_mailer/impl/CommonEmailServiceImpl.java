@@ -61,6 +61,8 @@ public class CommonEmailServiceImpl implements CommonEmailService {
 
 		final Properties mailProperties = createProperties(credentials);
 
+		System.err.println("=== CommonEmailServiceImpl: unbedingt wieder entfernen: " + new String(credentials.getPassword()));
+
 		char[] pwd = credentials.getPassword();
 
 		try {
