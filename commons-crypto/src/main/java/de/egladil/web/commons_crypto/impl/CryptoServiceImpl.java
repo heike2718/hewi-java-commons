@@ -111,4 +111,11 @@ public class CryptoServiceImpl implements CryptoService {
 		return new SecureRandomNumberGenerator().nextBytes(byteSize).toBase64().toCharArray();
 	}
 
+	@Override
+	public String generateSessionId() {
+
+		char[] result = generateSalt(128);
+		return new String(result);
+	}
+
 }

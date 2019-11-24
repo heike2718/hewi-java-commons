@@ -129,4 +129,10 @@ public class EmailServiceCredentials {
 		return fromAddress;
 	}
 
+	@Override
+	public String toString() {
+
+		return "EmailServiceCredentials [host=" + host + ", port=" + port + ", user=" + user + ", fromAddress=" + fromAddress + "]";
+	}
+
 }
