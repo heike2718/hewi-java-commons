@@ -81,20 +81,47 @@ public final class CommonHttpUtils {
 		return dump;
 	}
 
-	public static String getSessionId(final ContainerRequestContext requestContext, final String stage) {
+	/**
+	 * Gibt aus dem requestContext die sessionId zurück, falls vorhanden, sonst null.<br>
+	 * <ul>
+	 * <li>Stage dev: Wert des Headers mit dem Namen X-SESSIONID</li>
+	 * <li>Sonst: Wert des Cookies mit dem Namen clientPrefix_SESSIONID
+	 * </ul>
+	 *
+	 * @param  requestContext
+	 *                        ContainerRequestContext
+	 * @param  stage
+	 *                        String Name der Umgebung, also dev oder nicht
+	 * @param  clientPrefix
+	 * @return                Stringf oder null
+	 */
+	public static String getSessionId(final ContainerRequestContext requestContext, final String stage, final String clientPrefix) {
 
-		if (!STAGE_DEV.equals(stage)) {
+		return !STAGE_DEV.equals(stage) ? getSessionIdFromCookie(requestContext, clientPrefix)
+			: getSesssionIdFromHeader(requestContext);
 
-			Map<String, Cookie> cookies = requestContext.getCookies();
+	}
 
-			Cookie sessionCookie = cookies.get(NAME_SESSIONID_COOKIE);
+	private static String getSessionIdFromCookie(final ContainerRequestContext requestContext, final String clientPrefix) {
 
-			if (sessionCookie == null) {
+		String name = clientPrefix + NAME_SESSIONID_COOKIE;
 
-				LOG.error("{}: Request ohne {}-Cookie", requestContext.getUriInfo(), NAME_SESSIONID_COOKIE);
-				return null;
-			}
+		LOG.debug("Suchen Cookie mit namen {}", name);
+
+		Map<String, Cookie> cookies = requestContext.getCookies();
+
+		Cookie sessionCookie = cookies.get(name);
+
+		if (sessionCookie != null) {
+
+			return sessionCookie.getValue();
 		}
+
+		LOG.warn("{}: Request ohne {}-Cookie", requestContext.getUriInfo(), name);
+		return null;
+	}
+
+	private static String getSesssionIdFromHeader(final ContainerRequestContext requestContext) {
 
 		String sessionIdHeader = requestContext.getHeaderString(SESSION_ID_HEADER);
 
@@ -107,15 +134,18 @@ public final class CommonHttpUtils {
 
 		LOG.debug("sessionId={}", sessionIdHeader);
 		return sessionIdHeader;
-
 	}
 
-	public static NewCookie createSessionInvalidatedCookie() {
+	public static NewCookie createSessionInvalidatedCookie(final String clientPrefix) {
 
 		long dateInThePast = CommonTimeUtils.now().minus(10, ChronoUnit.YEARS).toEpochSecond(ZoneOffset.UTC);
 
+		String name = clientPrefix + NAME_SESSIONID_COOKIE;
+
+		LOG.debug("Erzeugen Cookie mit name={} und Wert null", name);
+
 		// @formatter:off
-		NewCookie invalidationCookie = new NewCookie(CommonHttpUtils.NAME_SESSIONID_COOKIE,
+		NewCookie invalidationCookie = new NewCookie(name,
 			null,
 			null,
 			null,
@@ -125,8 +155,7 @@ public final class CommonHttpUtils {
 			new Date(dateInThePast),
 			true,
 			true);
-//		 @formatter:on
-		// NewCookie sessionCookie = new NewCookie("JSESSIONID", userSession.getSessionId());
+		//@formatter:on
 
 		return invalidationCookie;
 	}
