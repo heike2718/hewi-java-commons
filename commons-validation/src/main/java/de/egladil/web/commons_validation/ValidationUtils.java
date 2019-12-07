@@ -32,7 +32,7 @@ import de.egladil.web.commons_validation.payload.ResponsePayload;
  */
 public class ValidationUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(ValidationUtils.class);
 
 	/**
 	 * Validation-Messages in verarbeitbarer Form extrahieren.

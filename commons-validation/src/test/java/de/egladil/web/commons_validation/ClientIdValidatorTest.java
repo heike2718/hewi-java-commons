@@ -29,7 +29,7 @@ import de.egladil.web.commons_validation.annotations.ClientId;
  */
 public class ClientIdValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ClientIdValidatorTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(ClientIdValidatorTest.class);
 
 	private static final String INVALID_CHARS = "!\"#$%&()*-/:;<>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
 
