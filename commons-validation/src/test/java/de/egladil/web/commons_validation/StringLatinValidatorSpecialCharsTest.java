@@ -28,7 +28,7 @@ import de.egladil.web.commons_validation.annotations.StringLatin;
  */
 public class StringLatinValidatorSpecialCharsTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StringLatinValidatorSpecialCharsTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(StringLatinValidatorSpecialCharsTest.class);
 
 	private static final String INVALID_CHARS = "!#$%&*+:;<=>?[\\]^{|}~";
 

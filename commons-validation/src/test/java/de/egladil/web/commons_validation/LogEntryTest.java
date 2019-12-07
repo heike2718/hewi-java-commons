@@ -20,7 +20,6 @@ public class LogEntryTest {
 		LogEntry le = new LogEntry();
 		le.setLevel(TSLogLevel.Info);
 		le.setMessage("Eine Info-Message");
-		le.setClientAccessToken("null");
 
 		System.out.println(le.toString());
 
