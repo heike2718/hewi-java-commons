@@ -1,7 +1,7 @@
-//=====================================================
+// =====================================================
 // Projekt: de.egladil.persistence.tools
 // (c) Heike Winkelvoß
-//=====================================================
+// =====================================================
 
 package de.egladil.web.commons_validation;
 
@@ -28,7 +28,7 @@ import de.egladil.web.commons_validation.annotations.Passwort;
  */
 public class PasswortValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PasswortValidatorTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(PasswortValidatorTest.class);
 
 	private static final String INVALID_CHARS = "ф";
 
@@ -53,15 +53,18 @@ public class PasswortValidatorTest {
 		 * Erzeugt eine Instanz von TestObject
 		 */
 		public TestObject(final String value) {
+
 			this.value = value;
 		}
 
 		/**
 		 * Setzt die Membervariable
 		 *
-		 * @param value neuer Wert der Membervariablen value
+		 * @param value
+		 *              neuer Wert der Membervariablen value
 		 */
 		public void setValue(final String value) {
+
 			this.value = value;
 		}
 
@@ -71,6 +74,7 @@ public class PasswortValidatorTest {
 		 * @return die Membervariable value
 		 */
 		protected String getValue() {
+
 			return value;
 		}
 	}
@@ -78,6 +82,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when value valid")
 	public void validate1() {
+
 		// Arrange
 		final TestObject credentials = new TestObject();
 		credentials.setValue("Qwertz!2");
@@ -95,6 +100,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when value blank")
 	public void validate2() {
+
 		// Arrange
 		final TestObject credentials = new TestObject();
 		credentials.setValue("        ");
@@ -117,6 +123,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when value null")
 	public void validate3() {
+
 		// Arrange
 		final TestObject credentials = new TestObject();
 		credentials.setValue(null);
@@ -134,6 +141,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when value too long")
 	public void validate4() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit Länge 101");
 		final TestObject credentials = new TestObject();
@@ -160,6 +168,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when password 7 zeichen")
 	public void validate5() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit Länge 7");
 		final TestObject credentials = new TestObject();
@@ -184,6 +193,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when 7 zeichen anderer String")
 	public void validate6() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit Länge 7");
 		final TestObject credentials = new TestObject();
@@ -208,6 +218,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when führendes Leerzeichen")
 	public void validate14() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit führendem Leerzeichen");
 		final TestObject credentials = new TestObject();
@@ -233,6 +244,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when endendes Leerzeichen")
 	public void validate15() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit endendem Leerzeichen");
 		final TestObject credentials = new TestObject();
@@ -258,6 +270,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when value without uppercase")
 	public void validate7() {
+
 		// Arrange
 		LOG.info("Testen Passwort ohne Großbuchstaben");
 		final TestObject credentials = new TestObject();
@@ -276,6 +289,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when value without lowercase")
 	public void validate8() {
+
 		// Arrange
 		LOG.info("Testen Passwort ohne Kleinbuchstaben");
 		final TestObject credentials = new TestObject();
@@ -294,6 +308,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when contains space")
 	public void validate13() {
+
 		// Arrange
 		LOG.info("Testen Passwort mit Leerzeichen");
 		final TestObject credentials = new TestObject();
@@ -312,6 +327,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when value without digit")
 	public void validate9() {
+
 		// Arrange
 		LOG.info("Testen Passwort ohne Ziffer");
 		final TestObject credentials = new TestObject();
@@ -335,6 +351,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when start mit leerzeichen")
 	public void validate12() {
+
 		// Arrange
 		LOG.info("Testen Passwort ohne Ziffer");
 		final TestObject credentials = new TestObject();
@@ -358,6 +375,7 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("passes when value valid")
 	public void validate10() {
+
 		// Arrange
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -365,6 +383,7 @@ public class PasswortValidatorTest {
 		final String suffix = "12";
 
 		for (final char c : VALID_CHARS.toCharArray()) {
+
 			final TestObject testObject = new TestObject(prefix + c + suffix);
 
 			// Act
@@ -378,12 +397,14 @@ public class PasswortValidatorTest {
 	@Test
 	@DisplayName("fails when value invalid")
 	public void validate11() {
+
 		// Arrange
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
 		final String prefix = "start12";
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
+
 			final TestObject testObject = new TestObject(prefix + c);
 
 			// Act

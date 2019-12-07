@@ -18,8 +18,6 @@ public class LogEntry {
 
 	private long timestamp;
 
-	private String clientAccessToken;
-
 	private String message;
 
 	private TSLogLevel level;
@@ -54,23 +52,13 @@ public class LogEntry {
 		this.timestamp = timestamp;
 	}
 
-	public String getClientAccessToken() {
-
-		return clientAccessToken;
-	}
-
-	public void setClientAccessToken(final String clientAccessToken) {
-
-		this.clientAccessToken = clientAccessToken;
-	}
-
 	@Override
 	public String toString() {
 
 		LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
 
 		return ldt.format(DT_FORMATTER)
-			+ " - " + clientAccessToken + " -  " + message;
+			+ " -  " + message;
 	}
 
 }

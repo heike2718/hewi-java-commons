@@ -1,7 +1,7 @@
-//=====================================================
+// =====================================================
 // Projekt: de.egladil.common.validation
 // (c) Heike Winkelvoß
-//=====================================================
+// =====================================================
 
 package de.egladil.web.commons_validation;
 
@@ -29,7 +29,7 @@ import de.egladil.web.commons_validation.annotations.LoginName;
  */
 public class LoginNameValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(LoginNameValidatorTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(LoginNameValidatorTest.class);
 
 	/*
 	 * Unterstrich, Leerzeichen, Minus, Punkt, Ausrufezeichen, Semikolon, Komma, '@'
@@ -48,6 +48,7 @@ public class LoginNameValidatorTest {
 		 * Erzeugt eine Instanz von TestObject
 		 */
 		public TestObject(final String value) {
+
 			super();
 			this.value = value;
 		}
@@ -56,13 +57,18 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("invalidChars and validChars are disjunct")
 	public void checkSetup() {
+
 		Set<String> validChars = new HashSet<>();
+
 		for (char c : VALID_CHARS.toCharArray()) {
+
 			validChars.add(String.valueOf(c));
 		}
 
 		Set<String> invalidChars = new HashSet<>();
+
 		for (char c : INVALID_CHARS.toCharArray()) {
+
 			invalidChars.add(String.valueOf(c));
 		}
 
@@ -74,6 +80,7 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("passes when value null")
 	public void validate1() {
+
 		// Arrange
 		final TestObject testObject = new TestObject(null);
 
@@ -90,9 +97,12 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("passes when value too long")
 	public void validate2() {
+
 		// Arrange
 		String wert = "";
+
 		for (int i = 0; i < 256; i++) {
+
 			wert += "A";
 		}
 		assertEquals("Testsetting falsch - brauchen 256 Zeichen", 256, wert.length());
@@ -112,6 +122,7 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("passes when value blank")
 	public void validate3() {
+
 		// Arrange
 		final TestObject testObject = new TestObject("");
 
@@ -128,15 +139,20 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("passes when value valid")
 	public void validate4() {
+
 		// Arrange
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
 
 		for (final char c : VALID_CHARS.toCharArray()) {
+
 			TestObject testObject = null;
+
 			if (' ' == c) {
+
 				testObject = new TestObject("A");
 			} else {
+
 				testObject = new TestObject("" + c);
 			}
 
@@ -152,12 +168,14 @@ public class LoginNameValidatorTest {
 	@Test
 	@DisplayName("fails when value invalid")
 	public void validate5() {
+
 		// Arrange
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
 		final int expectedNumber = 1;
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
+
 			final TestObject testObject = new TestObject("" + c);
 
 			// Act

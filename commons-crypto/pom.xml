@@ -5,7 +5,7 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-crypto</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 	<packaging>jar</packaging>
 
 
@@ -27,9 +27,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0</version>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>8.0.0</version>
 		</dependency>
 
 		<dependency>

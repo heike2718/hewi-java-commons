@@ -35,7 +35,7 @@ import de.egladil.web.commons_mailer.exception.InvalidMailAddressException;
 @Dependent
 public class CommonEmailServiceImpl implements CommonEmailService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CommonEmailServiceImpl.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(CommonEmailServiceImpl.class);
 
 	@Override
 	public synchronized boolean sendMail(final EmailDaten maildaten, final EmailServiceCredentials credentials) throws EmailException, InvalidMailAddressException {

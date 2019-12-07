@@ -29,7 +29,7 @@ import de.egladil.web.commons_validation.annotations.UuidString;
  */
 public class UuidStringValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class.getSimpleName());
+	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
 
 	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
 
