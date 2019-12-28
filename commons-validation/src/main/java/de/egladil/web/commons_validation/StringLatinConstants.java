@@ -92,8 +92,8 @@ public interface StringLatinConstants {
 
 	String DIGITS = "0123456789";
 
-	/** Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe, der email-Trenner */
-	String SPECIALS = "\" \\-_\\.,'`'\\@()/‘";
+	/** alle Sonderzeichen */
+	String SPECIALS = "\" \\-_\\.,'`'\\@()/‘+:;<=>\\[\\]{}!#$§%&\\*\\?\\\\^|~°";
 
 	/**
 	 * Alle Buchstaben und diakritischen Zeichen aus StringLatin, alle Ziffern, Leerzeichen, Minus, Unterstrich, Punkt, Komma,
