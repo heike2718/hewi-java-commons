@@ -5,7 +5,7 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-validation</artifactId>
-	<version>1.4.2</version>
+	<version>1.4.3</version>
 	<packaging>jar</packaging>
 
 	<name>commons-validation</name>
@@ -55,8 +55,25 @@
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 			<version>1.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-beanutils</groupId>
+					<artifactId>commons-beanutils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-collections</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-digester</groupId>
+					<artifactId>commons-digester</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
