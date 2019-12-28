@@ -1,5 +1,10 @@
 # hewi-java-lib Release Notes
 
+## Release 1.4.2
+
+Whitelist für StringLatin erweitert.
+
+Expliziter Ausschluss von URLs in StringLatinValidator.
 
 ## Release 1.4.1
 
