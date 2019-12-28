@@ -30,10 +30,10 @@ public class StringLatinValidatorSpecialCharsTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(StringLatinValidatorSpecialCharsTest.class);
 
-	private static final String INVALID_CHARS = "!#$%&*+:;<=>?[\\]^{|}~";
+	private static final String INVALID_CHARS = "";
 
 	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe, at
-	private static final String VALID_CHARS = "@- _.,'`'‘";
+	private static final String VALID_CHARS = "\"@- _.,'`'‘+:;<=>()[]{}!#$%&*?\\^|~°$%§";
 
 	private class TestObject {
 
