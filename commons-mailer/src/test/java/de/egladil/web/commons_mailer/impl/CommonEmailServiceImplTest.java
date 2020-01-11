@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,8 @@ public class CommonEmailServiceImplTest {
 	void sendMailKlappt() throws IOException {
 
 		// Arrange
-		Path path = Path.of("/home/heike/git/konfigurationen/commons-mailer/mailprovider.properties");
+		// Path path = Path.of("/home/heike/git/konfigurationen/commons-mailer/mailprovider.properties");
+		Path path = Paths.get("/home/heike/git/konfigurationen/commons-mailer/mailprovider.properties");
 		assertTrue(Files.exists(path));
 		assertTrue(Files.isRegularFile(path));
 
