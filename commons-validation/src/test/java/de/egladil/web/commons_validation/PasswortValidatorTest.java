@@ -1,5 +1,5 @@
 // =====================================================
-// Projekt: de.egladil.persistence.tools
+// Projekt: commons-validation
 // (c) Heike Winkelvoß
 // =====================================================
 

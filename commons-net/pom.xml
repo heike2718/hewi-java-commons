@@ -84,6 +84,7 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<!-- Test ENDE -->
 
 	</dependencies>

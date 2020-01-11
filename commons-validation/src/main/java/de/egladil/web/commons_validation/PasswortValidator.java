@@ -26,9 +26,6 @@ public class PasswortValidator extends AbstractWhitelistValidator<Passwort, Stri
 	 */
 	private static final String REGEXP = "(?=[^A-ZÄÖÜa-zäöüß]*[A-ZÄÖÜa-zäöüß])(?=[^\\d]*[\\d])[A-Za-z0-9ÄÖÜäöüß!\"#\\$%&'\\(\\)\\*\\+,\\-\\.\\/:;<=>\\?@\\[\\]\\^\\\\_`'{|}~ ]{8,100}$";
 
-	/**
-	 * @see de.egladil.common.validation.validators.AbstractWhitelistValidator#getWhitelist()
-	 */
 	@Override
 	protected String getWhitelist() {
 

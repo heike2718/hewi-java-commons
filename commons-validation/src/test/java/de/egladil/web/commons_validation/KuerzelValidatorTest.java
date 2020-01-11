@@ -22,24 +22,25 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons_validation.annotations.UuidString;
+import de.egladil.web.commons_validation.annotations.Kuerzel;
 
 /**
- * UuidStringValidatorTest
+ * KuerzelValidatorTest
  */
-public class UuidStringValidatorTest {
+public class KuerzelValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(KuerzelValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
+	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@- _.'`'abcdefghijklmnopqrstuvwxyzäöüßÄÖÜ";
 
-	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe
+	private static final String VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,";
 
 	private Validator validator;
 
 	private class TestObject {
 
-		@UuidString
+		@Kuerzel
 		private final String value;
 
 		/**
@@ -74,8 +75,30 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
-	@DisplayName("passes when value blank")
+	@DisplayName("passes when value too long")
 	public void validate2() {
+
+		// Arrange
+		String wert = "";
+
+		for (int i = 0; i < 9; i++) {
+
+			wert += "A";
+		}
+		assertEquals("Testsetting falsch - brauchen 9 Zeichen", 9, wert.length());
+
+		final TestObject testObject = new TestObject(wert);
+
+		// Act
+		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
+
+		// Assert
+		assertTrue(errors.isEmpty());
+	}
+
+	@Test
+	@DisplayName("passes when value blank")
+	public void validate3() {
 
 		// Arrange
 		final TestObject testObject = new TestObject("");
@@ -89,7 +112,7 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("passes when value valid")
-	public void validate3() {
+	public void validate4() {
 
 		for (final char c : VALID_CHARS.toCharArray()) {
 
@@ -106,7 +129,7 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("fails when value invalid")
-	public void validate4() {
+	public void validate5() {
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
 
@@ -127,15 +150,18 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
-	@DisplayName("clientId valid")
-	void validate5() {
+	@DisplayName("kuerzel mit timestamp passes")
+	public void validate6() {
 
-		// Arrange
-		TestObject testObject = new TestObject("OdqqnVBej0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI");
+		final String kuerzel = "KASPSIRX20170702145236";
+
+		final TestObject testObject = new TestObject(kuerzel);
+
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 		// Assert
 		assertTrue(errors.isEmpty());
 	}
+
 }

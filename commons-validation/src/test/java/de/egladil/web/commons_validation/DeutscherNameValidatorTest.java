@@ -22,24 +22,24 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons_validation.annotations.UuidString;
+import de.egladil.web.commons_validation.annotations.DeutscherName;
 
 /**
- * UuidStringValidatorTest
+ * KuerzelValidatorTest
  */
-public class UuidStringValidatorTest {
+public class DeutscherNameValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DeutscherNameValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
+	private static final String INVALID_CHARS = "#$%*+/:;<=>?[\\\\]^{|}~'`'!";
 
-	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+	private static final String VALID_CHARS = " ,äöüßÄÖÜabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.\"&@()_";
 
 	private Validator validator;
 
 	private class TestObject {
 
-		@UuidString
+		@DeutscherName
 		private final String value;
 
 		/**
@@ -74,8 +74,30 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
-	@DisplayName("passes when value blank")
+	@DisplayName("passes when value too long")
 	public void validate2() {
+
+		// Arrange
+		String wert = "";
+
+		for (int i = 0; i < 101; i++) {
+
+			wert += "A";
+		}
+		assertEquals("Testsetting falsch - brauchen 101 Zeichen", 101, wert.length());
+
+		final TestObject testObject = new TestObject(wert);
+
+		// Act
+		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
+
+		// Assert
+		assertTrue(errors.isEmpty());
+	}
+
+	@Test
+	@DisplayName("passes when value blank")
+	public void validate3() {
 
 		// Arrange
 		final TestObject testObject = new TestObject("");
@@ -88,12 +110,28 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
+	@DisplayName("passes when value leerzeichen")
+	public void validate4() {
+
+		// Arrange
+		final TestObject testObject = new TestObject(" ");
+
+		// Act
+		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
+
+		// Assert
+		assertTrue(errors.isEmpty());
+	}
+
+	@Test
 	@DisplayName("passes when value valid")
-	public void validate3() {
+	public void validate5() {
+		// Arrange
 
 		for (final char c : VALID_CHARS.toCharArray()) {
 
-			final TestObject testObject = new TestObject("" + c);
+			TestObject testObject = null;
+			testObject = new TestObject("" + c);
 
 			// Act
 			final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
@@ -106,7 +144,10 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("fails when value invalid")
-	public void validate4() {
+	public void validate6() {
+
+		// Arrange
+		final int expectedNumber = 1;
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
 
@@ -117,25 +158,30 @@ public class UuidStringValidatorTest {
 
 			// Assert
 			assertFalse("Fehler bei [" + c + "]", errors.isEmpty());
-			assertEquals(1, errors.size());
+			assertEquals("Fehler bei ['" + c + "']", expectedNumber, errors.size());
 
 			final ConstraintViolation<TestObject> cv = errors.iterator().next();
 			LOG.debug(cv.getMessage());
 			assertEquals("value", cv.getPropertyPath().toString());
 		}
-
 	}
 
 	@Test
-	@DisplayName("clientId valid")
-	void validate5() {
+	@DisplayName("fails when value uri")
+	public void validate7() {
 
 		// Arrange
-		TestObject testObject = new TestObject("OdqqnVBej0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI");
+		final TestObject testObject = new TestObject("http://www.evil-url.com/malware.php");
+
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 		// Assert
-		assertTrue(errors.isEmpty());
+		assertFalse(errors.isEmpty());
+		assertEquals(1, errors.size());
+
+		final ConstraintViolation<TestObject> cv = errors.iterator().next();
+		LOG.debug(cv.getMessage());
+		assertEquals("value", cv.getPropertyPath().toString());
 	}
 }

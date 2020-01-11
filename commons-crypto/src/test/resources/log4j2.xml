@@ -7,7 +7,10 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Root level="DEBUG">
+		<Logger name="org.jboss" level="ERROR" />
+		<Logger name="org.hibernate" level="ERROR" />
+
+		<Root level="INFO">
 			<AppenderRef ref="console" />
 		</Root>
 	</Loggers>
