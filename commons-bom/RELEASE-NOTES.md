@@ -2,6 +2,11 @@
 
 ## Release 1.4.3
 
+CVE-2020-8840 fixed
+
+
+## Release 1.4.3
+
 CVE-2019-10086 fixed
 
 ## Release 1.4.2

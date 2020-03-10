@@ -19,9 +19,6 @@ public class PassphraseValdator extends AbstractWhitelistValidator<Passphrase, S
 	 */
 	private static final String REGEXP = "^.{8,200}$";
 
-	/**
-	 * @see de.egladil.common.validation.validators.AbstractWhitelistValidator#getWhitelist()
-	 */
 	@Override
 	protected String getWhitelist() {
 

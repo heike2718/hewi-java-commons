@@ -1,5 +1,5 @@
 // =====================================================
-// Projekt: de.egladil.common.validation
+// Projekt: commons-validation
 // (c) Heike Winkelvoß
 // =====================================================
 

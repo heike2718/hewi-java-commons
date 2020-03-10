@@ -22,24 +22,24 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons_validation.annotations.UuidString;
+import de.egladil.web.commons_validation.annotations.Dateiname;
 
 /**
- * UuidStringValidatorTest
+ * DateinameValidatorTest
  */
-public class UuidStringValidatorTest {
+public class DateinameValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DateinameValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
+	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ ,'`'äöüßÄÖÜ";
 
-	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.";
 
 	private Validator validator;
 
 	private class TestObject {
 
-		@UuidString
+		@Dateiname
 		private final String value;
 
 		/**
@@ -106,7 +106,7 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("fails when value invalid")
-	public void validate4() {
+	public void validate() {
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
 
@@ -126,16 +126,4 @@ public class UuidStringValidatorTest {
 
 	}
 
-	@Test
-	@DisplayName("clientId valid")
-	void validate5() {
-
-		// Arrange
-		TestObject testObject = new TestObject("OdqqnVBej0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI");
-		// Act
-		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
-
-		// Assert
-		assertTrue(errors.isEmpty());
-	}
 }

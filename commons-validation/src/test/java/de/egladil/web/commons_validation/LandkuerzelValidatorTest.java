@@ -16,30 +16,28 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons_validation.annotations.UuidString;
+import de.egladil.web.commons_validation.annotations.LandKuerzel;
 
 /**
- * UuidStringValidatorTest
+ * LandkuerzelValidatorTest
  */
-public class UuidStringValidatorTest {
+public class LandkuerzelValidatorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UuidStringValidatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LandkuerzelValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
+	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.'`'abcdefghijklmnopqrstuvwxyzäöüßÄÖÜ0123456789";
 
-	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
-
-	private Validator validator;
+	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe
+	private static final String VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-,";
 
 	private class TestObject {
 
-		@UuidString
+		@LandKuerzel
 		private final String value;
 
 		/**
@@ -52,19 +50,40 @@ public class UuidStringValidatorTest {
 		}
 	}
 
-	@BeforeEach
-	public void setUp() {
-
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
-	}
-
 	@Test
 	@DisplayName("passes when value null")
 	public void validate1() {
 
 		// Arrange
 		final TestObject testObject = new TestObject(null);
+
+		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		final Validator validator = validatorFactory.getValidator();
+
+		// Act
+		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
+
+		// Assert
+		assertTrue(errors.isEmpty());
+	}
+
+	@Test
+	@DisplayName("passes when value too long")
+	public void validate2() {
+
+		// Arrange
+		String wert = "";
+
+		for (int i = 0; i < 9; i++) {
+
+			wert += "A";
+		}
+		assertEquals("Testsetting falsch - brauchen 9 Zeichen", 9, wert.length());
+
+		final TestObject testObject = new TestObject(wert);
+
+		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		final Validator validator = validatorFactory.getValidator();
 
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
@@ -75,10 +94,13 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("passes when value blank")
-	public void validate2() {
+	public void validate3() {
 
 		// Arrange
 		final TestObject testObject = new TestObject("");
+
+		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		final Validator validator = validatorFactory.getValidator();
 
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
@@ -89,7 +111,11 @@ public class UuidStringValidatorTest {
 
 	@Test
 	@DisplayName("passes when value valid")
-	public void validate3() {
+	public void validate4() {
+
+		// Arrange
+		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		final Validator validator = validatorFactory.getValidator();
 
 		for (final char c : VALID_CHARS.toCharArray()) {
 
@@ -105,8 +131,12 @@ public class UuidStringValidatorTest {
 	}
 
 	@Test
-	@DisplayName("fails when value invalid")
-	public void validate4() {
+	@DisplayName("fails when value invald")
+	public void validate5() {
+
+		// Arrange
+		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		final Validator validator = validatorFactory.getValidator();
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
 
@@ -126,16 +156,4 @@ public class UuidStringValidatorTest {
 
 	}
 
-	@Test
-	@DisplayName("clientId valid")
-	void validate5() {
-
-		// Arrange
-		TestObject testObject = new TestObject("OdqqnVBej0i6ibueRQSDKrrfp4jYhMWd8Zyy3kmtHI");
-		// Act
-		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
-
-		// Assert
-		assertTrue(errors.isEmpty());
-	}
 }
