@@ -31,10 +31,10 @@ public class KuerzelValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(KuerzelValidatorTest.class);
 
-	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@- _.'`'abcdefghijklmnopqrstuvwxyzäöüßÄÖÜ";
+	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ _.'`'abcdefghijklmnopqrstuvwxyzäöüßÄÖÜ";
 
 	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe
-	private static final String VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,";
+	private static final String VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,-";
 
 	private Validator validator;
 
