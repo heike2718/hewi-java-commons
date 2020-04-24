@@ -1,5 +1,11 @@
 # hewi-java-lib Release Notes
 
+## Release 1.4.5
+
+* CVE-2020-10969 fixed
+* auth0/java-jwt version angehoben
+
+
 ## Release 1.4.3
 
 CVE-2020-8840 fixed

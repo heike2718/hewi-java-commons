@@ -13,7 +13,7 @@ import de.egladil.web.commons_validation.annotations.Kuerzel;
  */
 public class KuerzelValidator extends AbstractWhitelistValidator<Kuerzel, String> {
 
-	private static final String REGEXP = "[A-Z0-9\\,]*";
+	private static final String REGEXP = "[A-Z0-9\\,-]*";
 
 	@Override
 	protected String getWhitelist() {
