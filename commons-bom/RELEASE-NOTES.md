@@ -1,5 +1,9 @@
 # hewi-java-lib Release Notes
 
+## Release 1.4.6
+
+* MessagePayload hat jetzt eine Methode für das oft benötigte 'ok'.
+
 ## Release 1.4.5
 
 * CVE-2020-10969 fixed
