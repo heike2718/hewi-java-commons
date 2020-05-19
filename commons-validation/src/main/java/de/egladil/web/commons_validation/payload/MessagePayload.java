@@ -59,6 +59,16 @@ public class MessagePayload {
 		return "INFO".equals(level);
 	}
 
+	/**
+	 * INFO-MessagePalyod mit Text 'ok'.
+	 *
+	 * @return
+	 */
+	public static MessagePayload ok() {
+
+		return info("ok");
+	}
+
 	public static MessagePayload info(final String message) {
 
 		return new MessagePayload("INFO", message);
