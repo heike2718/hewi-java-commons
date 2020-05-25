@@ -12,9 +12,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,15 +24,13 @@ import de.egladil.web.commons_validation.annotations.ClientId;
 /**
  * UuidStringValidatorTest
  */
-public class ClientIdValidatorTest {
+public class ClientIdValidatorTest extends AbstractValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ClientIdValidatorTest.class);
 
 	private static final String INVALID_CHARS = "!\"#$%&()*-/:;<>?@[\\]^{|}~@ _.,'`'äöüßÄÖÜ";
 
 	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+=";
-
-	private Validator validator;
 
 	private class TestObject {
 
@@ -55,8 +50,7 @@ public class ClientIdValidatorTest {
 	@BeforeEach
 	public void setUp() {
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		super.setUp();
 	}
 
 	@Test

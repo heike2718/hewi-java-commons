@@ -11,9 +11,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,11 +23,9 @@ import de.egladil.web.commons_validation.annotations.HttpUrl;
 /**
  * HttpUrlValidatorTest
  */
-public class HttpUrlValidatorTest {
+public class HttpUrlValidatorTest extends AbstractValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HttpUrlValidatorTest.class);
-
-	private Validator validator;
 
 	private class TestObject {
 
@@ -50,8 +45,7 @@ public class HttpUrlValidatorTest {
 	@BeforeEach
 	public void setUp() {
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		super.setUp();
 	}
 
 	@Test

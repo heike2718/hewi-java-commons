@@ -93,7 +93,7 @@ public class ValidationDelegate {
 			throw new InvalidInputException(new ResponsePayload(MessagePayload.error("payload null"), payload));
 		}
 		final Set<ConstraintViolation<T>> errors = validator.validate(payload);
-		handleValidationErrorsWithKleber(payload, errors, clazz);
+		handleValidationErrorsWithKleber(errors, clazz);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class ValidationDelegate {
 	 * @throws IllegalArgumentException
 	 * @throws InvalidInputException
 	 */
-	private <T> void handleValidationErrorsWithKleber(final T loggableObject, final Set<ConstraintViolation<T>> errors, final Class<T> clazz) throws IllegalArgumentException {
+	private <T> void handleValidationErrorsWithKleber(final Set<ConstraintViolation<T>> errors, final Class<T> clazz) throws IllegalArgumentException {
 
 		if (!errors.isEmpty()) {
 

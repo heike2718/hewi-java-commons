@@ -12,9 +12,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,15 +24,13 @@ import de.egladil.web.commons_validation.annotations.Dateiname;
 /**
  * DateinameValidatorTest
  */
-public class DateinameValidatorTest {
+public class DateinameValidatorTest extends AbstractValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DateinameValidatorTest.class);
 
 	private static final String INVALID_CHARS = "!\"#$%&()*+/:;<=>?@[\\]^{|}~@ ,'`'äöüßÄÖÜ";
 
 	private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.";
-
-	private Validator validator;
 
 	private class TestObject {
 
@@ -55,8 +50,7 @@ public class DateinameValidatorTest {
 	@BeforeEach
 	public void setUp() {
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		super.setUp();
 	}
 
 	@Test
