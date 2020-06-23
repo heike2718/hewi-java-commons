@@ -5,6 +5,8 @@
 
 package de.egladil.web.commons_validation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * InvalidProperties.<br>
  * <br>
@@ -12,10 +14,13 @@ package de.egladil.web.commons_validation;
  */
 public class InvalidProperty {
 
+	@JsonProperty
 	private int sortnumber;
 
+	@JsonProperty
 	private String name;
 
+	@JsonProperty
 	private String message;
 
 	/**
@@ -102,11 +107,9 @@ public class InvalidProperty {
 	public String toString() {
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("InvalidProperty [name=");
 		builder.append(name);
-		builder.append(", message=");
+		builder.append(": ");
 		builder.append(message);
-		builder.append("]");
 		return builder.toString();
 	}
 
