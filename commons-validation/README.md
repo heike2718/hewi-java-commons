@@ -4,6 +4,10 @@ contains annotations for beans validation and commonly used classes for REST
 
 ## current release
 
+__1.4.7:__
+
+mehrere CVEs wegen jackso-databind gefixed
+
 __1.4.0:__
 
 beim Versionieren verzählt gehabt, keine inhaltlichen Änderungen
