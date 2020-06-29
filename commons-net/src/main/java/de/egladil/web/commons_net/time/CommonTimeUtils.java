@@ -6,9 +6,13 @@
 package de.egladil.web.commons_net.time;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 /**
@@ -73,6 +77,31 @@ public final class CommonTimeUtils {
 	}
 
 	/**
+	 * Wandelt date in LocalDateTime in der system timezone um.
+	 *
+	 * @param  date
+	 *              Date darf null sein.
+	 * @return      LocalDate null bei null
+	 */
+	public static LocalDate transformToLocalDateFromDate(final Date date) {
+
+		return date == null ? null : LocalDate.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+
+	}
+
+	/**
+	 * Wandelt ein LocalDateTime in ein Date um.
+	 *
+	 * @param  localDate
+	 *                   darf null sein
+	 * @return           Date oder null
+	 */
+	public static Date transformFromLocalDate(final LocalDate localDate) {
+
+		return localDate == null ? null : Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
 	 * Erzeugt ein abgeschlossenes Zeitintervall.
 	 *
 	 * @param  startTime
@@ -121,6 +150,66 @@ public final class CommonTimeUtils {
 		LocalDateTime ldt = LocalDateTime.now(ZoneId.systemDefault());
 
 		return ldt;
+
+	}
+
+	/**
+	 * Formatiert ein LocalDate als dd.MM.yyyy.
+	 *
+	 * @param  localDate
+	 * @return
+	 */
+	public static String format(final LocalDate localDate) {
+
+		return localDate == null ? null : localDate.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
+	}
+
+	/**
+	 * Formatiert ein LocalDateTime als dd.MM.yyyy kk:mm:ss.
+	 *
+	 * @param  localDateTime
+	 *                       LocalDateTime darf null sein
+	 * @return               String oder null
+	 */
+	public static String format(final LocalDateTime localDateTime) {
+
+		return localDateTime == null ? null : localDateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
+	}
+
+	/**
+	 * Formatiert ein LocalDateTime als dd.MM.yyyy kk:mm.
+	 *
+	 * @param  localDateTime
+	 *                       LocalDateTime darf null sein
+	 * @return               String oder null
+	 */
+	public static String formatToMinutes(final LocalDateTime localDateTime) {
+
+		return localDateTime == null ? null : localDateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_MINUTES_FORMAT));
+	}
+
+	/**
+	 * Wandelt einen String mit dem Format 'dd.MM.yyyy' in ein LocalDate um.
+	 *
+	 * @param  dateString
+	 *                    darf nicht null sein. Muss gültiges Datumsformat haben.
+	 * @return            LocalDate
+	 */
+	public static LocalDate parseToLocalDate(final String dateString) throws IllegalArgumentException {
+
+		if (dateString == null) {
+
+			throw new IllegalArgumentException("dateString darf nicht null sein");
+		}
+
+		try {
+
+			TemporalAccessor ta = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT).parse(dateString);
+			return LocalDate.from(ta);
+		} catch (DateTimeParseException e) {
+
+			throw new IllegalArgumentException(dateString + " ist kein gültiges Datum");
+		}
 
 	}
 }

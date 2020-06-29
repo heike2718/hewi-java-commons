@@ -12,10 +12,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -26,7 +24,7 @@ import de.egladil.web.commons_validation.annotations.LandKuerzel;
 /**
  * LandkuerzelValidatorTest
  */
-public class LandkuerzelValidatorTest {
+public class LandkuerzelValidatorTest extends AbstractValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LandkuerzelValidatorTest.class);
 
@@ -50,15 +48,18 @@ public class LandkuerzelValidatorTest {
 		}
 	}
 
+	@BeforeEach
+	public void setUp() {
+
+		super.setUp();
+	}
+
 	@Test
 	@DisplayName("passes when value null")
 	public void validate1() {
 
 		// Arrange
 		final TestObject testObject = new TestObject(null);
-
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		final Validator validator = validatorFactory.getValidator();
 
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
@@ -82,9 +83,6 @@ public class LandkuerzelValidatorTest {
 
 		final TestObject testObject = new TestObject(wert);
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		final Validator validator = validatorFactory.getValidator();
-
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
@@ -99,9 +97,6 @@ public class LandkuerzelValidatorTest {
 		// Arrange
 		final TestObject testObject = new TestObject("");
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		final Validator validator = validatorFactory.getValidator();
-
 		// Act
 		final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
@@ -112,10 +107,6 @@ public class LandkuerzelValidatorTest {
 	@Test
 	@DisplayName("passes when value valid")
 	public void validate4() {
-
-		// Arrange
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		final Validator validator = validatorFactory.getValidator();
 
 		for (final char c : VALID_CHARS.toCharArray()) {
 
@@ -133,10 +124,6 @@ public class LandkuerzelValidatorTest {
 	@Test
 	@DisplayName("fails when value invald")
 	public void validate5() {
-
-		// Arrange
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		final Validator validator = validatorFactory.getValidator();
 
 		for (final char c : INVALID_CHARS.toCharArray()) {
 

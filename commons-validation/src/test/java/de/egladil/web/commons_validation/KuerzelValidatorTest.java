@@ -12,9 +12,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +24,7 @@ import de.egladil.web.commons_validation.annotations.Kuerzel;
 /**
  * KuerzelValidatorTest
  */
-public class KuerzelValidatorTest {
+public class KuerzelValidatorTest extends AbstractValidatorTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(KuerzelValidatorTest.class);
 
@@ -35,8 +32,6 @@ public class KuerzelValidatorTest {
 
 	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe
 	private static final String VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,-";
-
-	private Validator validator;
 
 	private class TestObject {
 
@@ -56,8 +51,7 @@ public class KuerzelValidatorTest {
 	@BeforeEach
 	public void setUp() {
 
-		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		super.setUp();
 	}
 
 	@Test
