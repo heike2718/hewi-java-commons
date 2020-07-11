@@ -4,6 +4,10 @@ contains annotations for beans validation and commonly used classes for REST
 
 ## current release
 
+__1.4.9:__
+
+Für den OAuth2 AccessToken-Grand-Flow gibt es ein neues Pojo ExchangeTokenResponse.
+
 __1.4.7:__
 
 mehrere CVEs wegen jackso-databind gefixed

@@ -1,5 +1,9 @@
 # hewi-java-lib Release Notes
 
+## Release 1.4.9
+
+* Für den OAuth2 AccessToken-Grand-Flow gibt es ein neues Pojo ExchangeTokenResponse.
+
 ## Release 1.4.6
 
 * MessagePayload hat jetzt eine Methode für das oft benötigte 'ok'.
