@@ -5,7 +5,7 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-net</artifactId>
-	<version>1.4.9</version>
+	<version>1.4.10</version>
 	<packaging>jar</packaging>
 
 
