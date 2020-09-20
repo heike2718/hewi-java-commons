@@ -5,15 +5,28 @@
 
 package de.egladil.web.commons_validation.payload;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * ResponsePayload
  */
+@XmlRootElement(name = "response-payload")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ResponsePayload {
 
+	@JsonProperty
+	@XmlElement
 	private MessagePayload message;
 
+	@JsonProperty
+	@XmlTransient
 	private Object data;
 
 	/**
