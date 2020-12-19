@@ -31,6 +31,14 @@ public class DefaultEmailDaten implements EmailDaten {
 		}
 	}
 
+	public void addHiddenEmpfaenger(final Collection<String> empfaenger) {
+
+		if (empfaenger != null) {
+
+			hiddenEmpfaenger.addAll(empfaenger);
+		}
+	}
+
 	@Override
 	public String getEmpfaenger() {
 
