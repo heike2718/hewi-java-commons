@@ -212,4 +212,29 @@ public final class CommonTimeUtils {
 		}
 
 	}
+
+	/**
+	 * Wandelt einen String mit dem Format 'dd.MM.yyyy hh:mm:ss' in ein LocalDate um.
+	 *
+	 * @param  dateString
+	 *                    darf nicht null sein. Muss gültiges Datumsformat haben.
+	 * @return            LocalDate
+	 */
+	public static LocalDateTime parseToLocalDateTime(final String dateString) throws IllegalArgumentException {
+
+		if (dateString == null) {
+
+			throw new IllegalArgumentException("dateString darf nicht null sein");
+		}
+
+		try {
+
+			TemporalAccessor ta = DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT).parse(dateString);
+			return LocalDateTime.from(ta);
+		} catch (DateTimeParseException e) {
+
+			throw new IllegalArgumentException(dateString + " ist kein gültiges Datum");
+		}
+
+	}
 }

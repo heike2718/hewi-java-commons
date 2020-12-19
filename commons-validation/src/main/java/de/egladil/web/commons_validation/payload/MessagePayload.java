@@ -5,15 +5,27 @@
 
 package de.egladil.web.commons_validation.payload;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * MessagePayload
  */
+@XmlRootElement(name = "gesamtpunktverteilung")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MessagePayload {
 
+	@XmlElement
+	@JsonProperty
 	private String level;
 
+	@XmlElement
+	@JsonProperty
 	private String message;
 
 	/**
