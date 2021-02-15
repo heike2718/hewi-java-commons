@@ -8,12 +8,15 @@ package de.egladil.web.commons_mailer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
  * DefaultEmailDaten ist eine Default-Implementierung, die man für das Interface verwenden kann.
  */
 public class DefaultEmailDaten implements EmailDaten {
+
+	private String messageId;
 
 	private String empfaenger;
 
@@ -22,6 +25,33 @@ public class DefaultEmailDaten implements EmailDaten {
 	private String text;
 
 	private List<String> hiddenEmpfaenger = new ArrayList<>();
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(messageId);
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+
+		if (this == obj) {
+
+			return true;
+		}
+
+		if (obj == null) {
+
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
+
+			return false;
+		}
+		DefaultEmailDaten other = (DefaultEmailDaten) obj;
+		return Objects.equals(messageId, other.messageId);
+	}
 
 	public void addHiddenEmpfaenger(final String empfaenger) {
 
@@ -84,6 +114,16 @@ public class DefaultEmailDaten implements EmailDaten {
 	public void setText(final String text) {
 
 		this.text = text;
+	}
+
+	public String getMessageId() {
+
+		return messageId;
+	}
+
+	public void setMessageId(final String messageId) {
+
+		this.messageId = messageId;
 	}
 
 }
