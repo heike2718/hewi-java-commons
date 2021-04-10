@@ -5,7 +5,7 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-bom</artifactId>
-	<version>1.4.13</version>
+	<version>1.5.0</version>
 	<packaging>pom</packaging>
 
 	<dependencyManagement>
@@ -25,6 +25,12 @@
 			<dependency>
 				<groupId>de.egladil.web</groupId>
 				<artifactId>commons-mailer</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.egladil.web</groupId>
+				<artifactId>commons-messager</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
