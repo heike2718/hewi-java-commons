@@ -1,4 +1,9 @@
-# hewi-java-commons
+i# hewi-java-commons
+
+_Release 1.5.0_
+
+* config POJOs for mail and telegram configurations
+
 
 _Release 1.5.0_
 
