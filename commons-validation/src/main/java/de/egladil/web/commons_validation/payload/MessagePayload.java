@@ -45,6 +45,12 @@ public class MessagePayload {
 		this.message = message;
 	}
 
+	@Override
+	public String toString() {
+
+		return "MessagePayload [level=" + level + ", message=" + message + "]";
+	}
+
 	public String getLevel() {
 
 		return level;
