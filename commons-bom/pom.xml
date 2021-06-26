@@ -42,6 +42,18 @@
 
 			<dependency>
 				<groupId>de.egladil.web</groupId>
+				<artifactId>commons-openofficetools</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.egladil.web</groupId>
+				<artifactId>commons-security</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.egladil.web</groupId>
 				<artifactId>commons-testsupport</artifactId>
 				<version>${project.version}</version>
 			</dependency>
