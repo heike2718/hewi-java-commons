@@ -6,33 +6,33 @@
 package de.egladil.web.commons_openofficetools.exceptions;
 
 /**
- * ParserSecurityException
+ * OOParserSecurityException
  */
-public class ParserSecurityException extends RuntimeException {
+public class OOParserSecurityException extends RuntimeException {
 
 	/* serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ParserSecurityException
+	 * OOParserSecurityException
 	 */
-	public ParserSecurityException(final String message) {
+	public OOParserSecurityException(final String message) {
 
 		super(message);
 	}
 
 	/**
-	 * ParserSecurityException
+	 * OOParserSecurityException
 	 */
-	public ParserSecurityException(final Throwable cause) {
+	public OOParserSecurityException(final Throwable cause) {
 
 		super(cause);
 	}
 
 	/**
-	 * ParserSecurityException
+	 * OOParserSecurityException
 	 */
-	public ParserSecurityException(final String message, final Throwable cause) {
+	public OOParserSecurityException(final String message, final Throwable cause) {
 
 		super(message, cause);
 	}

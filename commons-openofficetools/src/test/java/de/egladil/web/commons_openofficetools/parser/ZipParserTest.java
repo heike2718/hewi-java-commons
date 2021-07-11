@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 // =====================================================
 
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -20,7 +20,8 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
-import de.egladil.web.commons_openofficetools.exceptions.ParserSecurityException;
+import de.egladil.web.commons_openofficetools.exceptions.OOParserSecurityException;
+import de.egladil.web.commons_openofficetools.parser.ZipParser;
 
 /**
  * ZipParserTest
@@ -82,12 +83,12 @@ public class ZipParserTest {
 			// Act + Assert
 
 			parser.checkZipBomb(zipBomb, length);
-			fail("keine ParserSecurityException");
+			fail("keine OOParserSecurityException");
 		} catch (final IOException e) {
 
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage(), e);
-		} catch (final ParserSecurityException e) {
+		} catch (final OOParserSecurityException e) {
 
 			assertEquals("ZipEntry 'data' ist größer als 128 Bytes mit kleinem Puffer", e.getMessage());
 		}
@@ -109,9 +110,9 @@ public class ZipParserTest {
 
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage(), e);
-		} catch (final ParserSecurityException e) {
+		} catch (final OOParserSecurityException e) {
 
-			fail("ParserSecurityException sollte nicht kommen");
+			fail("OOParserSecurityException sollte nicht kommen");
 		}
 	}
 
@@ -131,7 +132,7 @@ public class ZipParserTest {
 
 			parser.checkZipBomb(data, length);
 			fail("keine IOException");
-		} catch (final ParserSecurityException e) {
+		} catch (final OOParserSecurityException e) {
 
 			assertEquals("Exception Erzeugen eines ZipFiles (vermutlich kein Zip-Archiv): zip END header not found",
 				e.getMessage());

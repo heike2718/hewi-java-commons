@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 // =====================================================
 
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import java.util.ArrayList;
 import java.util.List;

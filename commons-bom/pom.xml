@@ -48,6 +48,12 @@
 
 			<dependency>
 				<groupId>de.egladil.web</groupId>
+				<artifactId>commons-exeltools</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.egladil.web</groupId>
 				<artifactId>commons-security</artifactId>
 				<version>${project.version}</version>
 			</dependency>

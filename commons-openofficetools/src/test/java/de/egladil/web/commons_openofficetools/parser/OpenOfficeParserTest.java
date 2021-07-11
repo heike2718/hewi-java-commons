@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 // =====================================================
 
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,7 +20,10 @@ import javax.xml.stream.XMLStreamException;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
-import de.egladil.web.commons_openofficetools.exceptions.ParserSecurityException;
+import de.egladil.web.commons_openofficetools.exceptions.OOParserSecurityException;
+import de.egladil.web.commons_openofficetools.parser.OOElementType;
+import de.egladil.web.commons_openofficetools.parser.OpenOfficeParser;
+import de.egladil.web.commons_openofficetools.parser.OpenOfficeTableElement;
 
 /**
  * OpenOfficeParserTest
@@ -34,7 +37,7 @@ public class OpenOfficeParserTest {
 		final String xml = "<!--?xml version=\"1.0\" ?--><!DOCTYPE replace [<!ENTITY example \"Doe\"> ]><userInfo><firstName>John</firstName><lastName>&example;</lastName></userInfo>";
 
 		// Act
-		final Throwable ex = assertThrows(ParserSecurityException.class, () -> {
+		final Throwable ex = assertThrows(OOParserSecurityException.class, () -> {
 
 			new OpenOfficeParser().checkVulnerableXml(xml);
 		});
@@ -48,7 +51,7 @@ public class OpenOfficeParserTest {
 		final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE foo [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xxe;</foo>";
 
 		// Act
-		final Throwable ex = assertThrows(ParserSecurityException.class, () -> {
+		final Throwable ex = assertThrows(OOParserSecurityException.class, () -> {
 
 			new OpenOfficeParser().checkVulnerableXml(xml);
 		});
@@ -62,7 +65,7 @@ public class OpenOfficeParserTest {
 		final String xml = "<!--?xml version=\"1.0\" ?--><!DOCTYPE lolz [<!ENTITY lol \"lol\"><!ELEMENT lolz (#PCDATA)><!ENTITY lol1 \"&lol;&lol;&lol;&lol;&lol;&lol;&lol;<!ENTITY lol2 \"&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;\"><!ENTITY lol3 \"&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;\"><!ENTITY lol4 \"&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;\"><!ENTITY lol5 \"&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;\"><!ENTITY lol6 \"&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;\"><!ENTITY lol7 \"&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;\"><!ENTITY lol8 \"&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;\"><!ENTITY lol9 \"&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;\"><tag>&lol9;</tag>";
 
 		// Act
-		final Throwable ex = assertThrows(ParserSecurityException.class, () -> {
+		final Throwable ex = assertThrows(OOParserSecurityException.class, () -> {
 
 			new OpenOfficeParser().checkVulnerableXml(xml);
 		});

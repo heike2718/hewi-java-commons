@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 // =====================================================
 
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,7 +34,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import de.egladil.web.commons_openofficetools.exceptions.ParserSecurityException;
+import de.egladil.web.commons_openofficetools.exceptions.OOParserSecurityException;
 
 /**
  * OpenOfficeParser
@@ -59,7 +59,7 @@ public class OpenOfficeParser {
 	 * @return                    String das xml
 	 * @throws IOException
 	 */
-	public String getContentSafe(final InputStream in, final int maxLengthExtracted) throws IOException, ParserSecurityException {
+	public String getContentSafe(final InputStream in, final int maxLengthExtracted) throws IOException, OOParserSecurityException {
 
 		try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
@@ -208,7 +208,7 @@ public class OpenOfficeParser {
 				+ "' is probably not supported by your XML processor.");
 		} catch (final SAXException e) {
 
-			throw new ParserSecurityException("XML enthält DOCTYPE");
+			throw new OOParserSecurityException("XML enthält DOCTYPE");
 		}
 	}
 }

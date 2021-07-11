@@ -32,20 +32,18 @@ public class ConvertscriptGenerator {
 	 * Generiert ein py-Script-File welches den Inhalt eines ExcelFiles in ein CVS-File schreiben kann.
 	 *
 	 * @param  pathWorkdir
-	 *                                   String pfad zum Arbeitsverzeichnis, in dem das Excel-File liegt.
+	 *                                    String pfad zum Arbeitsverzeichnis, in dem das Excel-File liegt.
 	 * @param  nameExcelFile
-	 *                                   String name des ExcelFiles
-	 * @return                           Trible left ist das py-File, middle ist der absolute Pfad der CSV-Datei, nachdem das
-	 *                                   py-script
-	 *                                   ausgeführt wurde, right ist der Zufallsstring, mit dem Kollissionen vermieden werden
-	 *                                   sollen.
+	 *                                    String name des ExcelFiles
+	 * @return                            File left ist das py-File
+	 *                                    sollen.
 	 * @throws ExceltoolsRuntimeException
 	 */
 	public File generatePyFile(final String pathWorkdir, final String nameExcelFile, final String pathOutputFile) throws ExceltoolsRuntimeException {
 
 		String substring = UUID.randomUUID().toString().substring(0, 8);
 		String namePyFile = "excel2csv-" + substring + ".py";
-		String pathExcelFile = pathWorkdir + File.separator + "klassenliste-iso.xlsx";
+		String pathExcelFile = pathWorkdir + File.separator + nameExcelFile;
 
 		File pyFile = new File(pathWorkdir + File.separator + namePyFile);
 

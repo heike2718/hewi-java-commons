@@ -2,7 +2,7 @@
 // Project: de.egladil.tools.parser
 // (c) Heike Winkelvoß
 // =====================================================
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +15,10 @@ import javax.xml.stream.XMLStreamException;
 
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
+
+import de.egladil.web.commons_openofficetools.parser.OORows2LinesMapper;
+import de.egladil.web.commons_openofficetools.parser.OpenOfficeParser;
+import de.egladil.web.commons_openofficetools.parser.OpenOfficeTableElement;
 
 /**
  * OORows2LinesMapperTest

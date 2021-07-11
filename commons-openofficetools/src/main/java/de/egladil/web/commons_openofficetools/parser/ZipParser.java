@@ -3,7 +3,7 @@
 // (c) Heike Winkelvoß
 // =====================================================
 
-package de.egladil.web.commons_openofficetools;
+package de.egladil.web.commons_openofficetools.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -21,7 +21,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.egladil.web.commons_openofficetools.exceptions.ParserSecurityException;
+import de.egladil.web.commons_openofficetools.exceptions.OOParserSecurityException;
 
 /**
  * ZipParser
@@ -39,9 +39,9 @@ public class ZipParser {
 	 * @param  maxLengthExtracted
 	 *                                 int maximale akzeptierte Anzahl extrahierter bytes
 	 * @throws IOException
-	 * @throws ParserSecurityException
+	 * @throws OOParserSecurityException
 	 */
-	public void checkZipBomb(final byte[] bytes, final int maxLengthExtracted) throws IOException, ParserSecurityException {
+	public void checkZipBomb(final byte[] bytes, final int maxLengthExtracted) throws IOException, OOParserSecurityException {
 
 		final long startTime = System.currentTimeMillis();
 
@@ -69,9 +69,9 @@ public class ZipParser {
 	 * @param  maxLengthExtracted
 	 *                                 int
 	 * @throws EgladilParserException
-	 * @throws ParserSecurityException
+	 * @throws OOParserSecurityException
 	 */
-	public void checkZipBomb(final File file, final int maxLengthExtracted) throws IOException, ParserSecurityException {
+	public void checkZipBomb(final File file, final int maxLengthExtracted) throws IOException, OOParserSecurityException {
 
 		final long startTime = System.currentTimeMillis();
 
@@ -88,7 +88,7 @@ public class ZipParser {
 			}
 		} catch (final ZipException e) {
 
-			throw new ParserSecurityException("Exception Erzeugen eines ZipFiles (vermutlich kein Zip-Archiv): " + e.getMessage(),
+			throw new OOParserSecurityException("Exception Erzeugen eines ZipFiles (vermutlich kein Zip-Archiv): " + e.getMessage(),
 				e);
 		} finally {
 
@@ -117,7 +117,7 @@ public class ZipParser {
 
 					if (count > maxLengthExtracted + 1) {
 
-						throw new ParserSecurityException("ZipEntry '" + entry.getName() + "' ist größer als " + maxLengthExtracted
+						throw new OOParserSecurityException("ZipEntry '" + entry.getName() + "' ist größer als " + maxLengthExtracted
 							+ " Bytes mit kleinem Puffer");
 					}
 				}
@@ -136,9 +136,9 @@ public class ZipParser {
 	 *                                 String
 	 * @return                         String den Inhalt des ZipEntrys im gegebenen encoding.
 	 * @throws IOException
-	 * @throws ParserSecurityException
+	 * @throws OOParserSecurityException
 	 */
-	public String getContentOfEntrySafe(final byte[] data, final String entryName, final int maxLengthExtracted, final String encoding) throws IOException, ParserSecurityException {
+	public String getContentOfEntrySafe(final byte[] data, final String entryName, final int maxLengthExtracted, final String encoding) throws IOException, OOParserSecurityException {
 
 		final long startTime = System.currentTimeMillis();
 
@@ -160,11 +160,11 @@ public class ZipParser {
 					return content;
 				}
 			}
-			throw new ParserSecurityException(
+			throw new OOParserSecurityException(
 				"Das Zip-Archiv enthält keinen ZipEntry mit Namen '" + entryName + "' in oberster Ebene.");
 		} catch (final ZipException e) {
 
-			throw new ParserSecurityException("Exception Erzeugen eines ZipFiles (vermutlich kein Zip-Archiv): " + e.getMessage(),
+			throw new OOParserSecurityException("Exception Erzeugen eines ZipFiles (vermutlich kein Zip-Archiv): " + e.getMessage(),
 				e);
 		} finally {
 
