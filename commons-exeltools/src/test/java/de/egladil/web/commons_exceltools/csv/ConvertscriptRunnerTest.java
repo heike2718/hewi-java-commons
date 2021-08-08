@@ -21,13 +21,13 @@ import de.egladil.web.commons_exceltools.error.ExceltoolsRuntimeException;
  */
 public class ConvertscriptRunnerTest extends AbstractCSVTest {
 
-	private ConvertscriptRunner runner = new ConvertscriptRunner();
+	private ConvertscriptRunner runner = ConvertscriptRunner.createForTest();
 
 	@Test
 	void should_runConvertscriptWork() {
 
 		// Arrange
-		String pathGeneratedFile = "/home/heike/mkv/py-tests/klassenliste-4f50584a.csv";
+		String pathGeneratedFile = "/home/heike/mkv/py-tests/klassenliste-0a8732c8.csv";
 		String nameTestscript = "test.py";
 
 		File file = new File(pathGeneratedFile);
