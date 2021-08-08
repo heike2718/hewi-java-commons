@@ -1,0 +1,36 @@
+<configuration debug="true">
+	<!-- DEBUG = TRUE sorgt dafür, dass LOGBACK Konfigurationsinfos auf die
+		Konsole gibt -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<!-- Alle LOGGER auf LEVEL ERROR. Während der Enwicklung kann das überschrieben
+		werden. -->
+	<logger name="org.jboss.logging" level="error" />
+	<logger name="org.hibernate" level="error" />
+	<logger name="com.mchange" level="error" />
+	<logger name="org.mariadb" level="error" />
+	<logger name="de.egladil.bv.aas" level="error" />
+	<logger name="de.egladil.common.config" level="error" />
+	<logger name="de.egladil.common.persistence" level="error" />
+	<logger name="de.egladil.common.validation" level="error" />
+	<logger name="de.egladil.common.webapp" level="error" />
+	<logger name="de.egladil.crypto.provider" level="error" />
+	<logger name="de.egladil.mkv.auswertungen" level="error" />
+	<logger name="de.egladil.mkv.persistence" level="error" />
+	<logger name="de.egladil.mkv.service" level="info" />
+
+
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+
+</configuration>
