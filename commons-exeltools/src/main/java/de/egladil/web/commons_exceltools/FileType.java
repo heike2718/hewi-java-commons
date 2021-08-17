@@ -2,13 +2,14 @@
 // Project: commons-exeltools
 // (c) Heike Winkelvoß
 // =====================================================
-package de.egladil.web.commons_exceltools.csv;
+package de.egladil.web.commons_exceltools;
 
 /**
- * AbstractCSVTest
+ * FileType
  */
-public abstract class AbstractCSVTest {
+public enum FileType {
 
-	protected static final String PATH_WORKDIR = "/home/heike/mkv/py-tests";
+	EXCEL_ALT,
+	EXCEL_NEU;
 
 }

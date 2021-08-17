@@ -34,14 +34,14 @@ public class OORows2LinesMapper implements Function<List<OpenOfficeTableElement>
 
 					if (cell.isFormula()) {
 
-						mappedRow.add("");
+						// mappedRow.add("");
 					} else {
 
 						mappedRow.add(cell.getContent());
 					}
 				}
 
-				String zeile = StringUtils.join(mappedRow, ',');
+				String zeile = StringUtils.join(mappedRow, ';');
 				result.add(zeile);
 			}
 		}

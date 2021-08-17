@@ -26,6 +26,8 @@ public class OpenOfficeContentReaderTest {
 
 			// Assert
 			assertEquals(6, zeilen.size());
+
+			zeilen.forEach(z -> System.out.println(z));
 		}
 
 	}
