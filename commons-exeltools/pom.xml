@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-exeltools</artifactId>
-	<version>1.6.0</version>
+	<version>1.7.0</version>
 	<name>commons-exeltools</name>
 
 	<properties>
@@ -32,6 +32,18 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
 		</dependency>
 
 		<dependency>
