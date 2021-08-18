@@ -134,7 +134,8 @@ public class MSSpreadSheetContentReaderImplTest {
 		@Test
 		void should_readLinesThrowException_whenIOException() {
 
-			File file = new File("/home/heike/mkv/auswertungen-testdaten/fehlerhaft/upload/mit-ueberschrift-fehlerhaft.csv/");
+			File file = new File(
+				"/home/heike/git/testdaten/minikaenguru/auswertungen/fehlerhaft/upload/mit-ueberschrift-fehlerhaft.csv/");
 
 			try {
 
@@ -143,7 +144,7 @@ public class MSSpreadSheetContentReaderImplTest {
 			} catch (ExceltoolsRuntimeException e) {
 
 				assertEquals(
-					"Die Datei /home/heike/mkv/auswertungen-testdaten/fehlerhaft/upload/mit-ueberschrift-fehlerhaft.csv konnte nicht verarbeitet werden: Invalid header signature; read 0x312D412C656D614E, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document",
+					"Die Datei /home/heike/git/testdaten/minikaenguru/auswertungen/fehlerhaft/upload/mit-ueberschrift-fehlerhaft.csv konnte nicht verarbeitet werden: Invalid header signature; read 0x312D413B656D614E, expected 0xE11AB1A1E011CFD0 - Your file appears not to be a valid OLE2 document",
 					e.getMessage());
 			}
 		}
@@ -151,7 +152,7 @@ public class MSSpreadSheetContentReaderImplTest {
 		@Test
 		void should_readLinesThrowException_whenOpenOfficeFile() {
 
-			File file = new File("/home/heike/mkv/upload/original-files/auswertungen/auswertung.ods");
+			File file = new File("/home/heike/git/testdaten/minikaenguru/auswertungen/korrekt/upload/auswertung.ods");
 
 			try {
 
@@ -160,7 +161,7 @@ public class MSSpreadSheetContentReaderImplTest {
 			} catch (ExceltoolsRuntimeException e) {
 
 				assertEquals(
-					"Die Datei /home/heike/mkv/upload/original-files/auswertungen/auswertung.ods konnte nicht verarbeitet werden: The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI that deals with OLE2 Office Documents. You need to call a different part of POI to process this data (eg XSSF instead of HSSF)",
+					"Die Datei /home/heike/git/testdaten/minikaenguru/auswertungen/korrekt/upload/auswertung.ods konnte nicht verarbeitet werden: The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI that deals with OLE2 Office Documents. You need to call a different part of POI to process this data (eg XSSF instead of HSSF)",
 					e.getMessage());
 			}
 		}
