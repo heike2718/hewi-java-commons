@@ -36,7 +36,7 @@ public class MSSpreadSheetContentReaderImpl implements MSSpreadSheetContentReade
 			return this.readContentAsLines(in, fileType);
 		} catch (UnsupportedFileFormatException | IOException e) {
 
-			LOGGER.error("FileType {0}: die  Datei {1} kann nicht verarbeitet werden: {2}", fileType,
+			LOGGER.error("FileType {}: die Datei {} kann nicht verarbeitet werden: {}", fileType,
 				file.getAbsolutePath(), e.getMessage(), e);
 
 			throw new ExceltoolsRuntimeException(
