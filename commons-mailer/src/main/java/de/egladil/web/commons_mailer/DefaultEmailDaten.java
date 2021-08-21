@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * DefaultEmailDaten ist eine Default-Implementierung, die man für das Interface verwenden kann.
  */
@@ -96,7 +98,7 @@ public class DefaultEmailDaten implements EmailDaten {
 	@Override
 	public List<String> alleEmpfaengerFuersLog() {
 
-		List<String> result = this.hiddenEmpfaenger.stream().collect(Collectors.toList());
+		List<String> result = this.hiddenEmpfaenger.stream().filter(e -> StringUtils.isNotBlank(e)).collect(Collectors.toList());
 		result.add(this.empfaenger);
 		return result;
 	}
