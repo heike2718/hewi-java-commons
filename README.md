@@ -1,6 +1,11 @@
 # hewi-java-commons
 
 
+_Release 1.7.1_
+
+* bump apache-shiro to 1.8.0
+
+
 _Release 1.6.0_
 
 * commons-security for file upload
