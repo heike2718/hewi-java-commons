@@ -5,6 +5,7 @@
 package de.egladil.web.commons_exceltools.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -41,6 +43,63 @@ public class MSSpreadSheetContentReaderImplTest {
 				lines.forEach(l -> System.out.println(l));
 			}
 
+		}
+
+		@Test
+		void should_convertAKlassenlisteFile() throws IOException {
+
+			try (InputStream in = getClass().getResourceAsStream("/klassenliste.xls")) {
+
+				List<String> lines = new MSSpreadSheetContentReaderImpl().readContentAsLines(in, FileType.EXCEL_ALT);
+
+				assertEquals(122, lines.size());
+
+				lines.forEach(l -> System.out.println(l));
+
+				for (int i = 0; i < lines.size(); i++) {
+
+					String[] tokens = lines.get(i).split(";");
+
+					if (i <= 8) {
+
+						assertEquals(4, tokens.length, "Fehler bei Index " + i);
+
+					} else {
+
+						assertEquals(1, tokens.length, "Fehler bei Index " + i);
+						assertTrue(StringUtils.isBlank(tokens[0]));
+					}
+
+				}
+
+			}
+
+		}
+
+		@Test
+		void should_convertMixedTypesWork() throws IOException {
+
+			try (InputStream in = getClass().getResourceAsStream("/mixed-celltypes.xls")) {
+
+				List<String> zeilen = new MSSpreadSheetContentReaderImpl().readContentAsLines(in, FileType.EXCEL_ALT);
+
+				// Assert
+				assertEquals(2, zeilen.size());
+
+				zeilen.forEach(z -> System.out.println(z));
+
+				{
+
+					String[] tokens = zeilen.get(0).split(";");
+					assertEquals(4, tokens.length);
+				}
+
+				{
+
+					String[] tokens = zeilen.get(1).split(";");
+					assertEquals(2, tokens.length);
+				}
+			}
 		}
 
 		@Test
@@ -109,6 +168,63 @@ public class MSSpreadSheetContentReaderImplTest {
 					e.getMessage());
 			}
 
+		}
+
+		@Test
+		void should_convertAKlassenlisteFile() throws IOException {
+
+			try (InputStream in = getClass().getResourceAsStream("/klassenliste.xlsx")) {
+
+				List<String> lines = new MSSpreadSheetContentReaderImpl().readContentAsLines(in, FileType.EXCEL_NEU);
+
+				assertEquals(107, lines.size());
+
+				lines.forEach(l -> System.out.println(l));
+
+				for (int i = 0; i < lines.size(); i++) {
+
+					String[] tokens = lines.get(i).split(";");
+
+					if (i <= 13) {
+
+						assertEquals(4, tokens.length, "Fehler bei Index " + i);
+
+					} else {
+
+						assertEquals(1, tokens.length, "Fehler bei Index " + i);
+						assertTrue(StringUtils.isBlank(tokens[0]));
+					}
+
+				}
+
+			}
+
+		}
+
+		@Test
+		void should_convertMixedTypesWork() throws IOException {
+
+			try (InputStream in = getClass().getResourceAsStream("/mixed-celltypes.xlsx")) {
+
+				List<String> zeilen = new MSSpreadSheetContentReaderImpl().readContentAsLines(in, FileType.EXCEL_NEU);
+
+				// Assert
+				assertEquals(2, zeilen.size());
+
+				zeilen.forEach(z -> System.out.println(z));
+
+				{
+
+					String[] tokens = zeilen.get(0).split(";");
+					assertEquals(4, tokens.length);
+				}
+
+				{
+
+					String[] tokens = zeilen.get(1).split(";");
+					assertEquals(2, tokens.length);
+				}
+			}
 		}
 
 		@Test
