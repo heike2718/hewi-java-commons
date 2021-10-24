@@ -6,6 +6,7 @@ package de.egladil.web.commons_exceltools;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 import de.egladil.web.commons_exceltools.impl.MSSpreadSheetContentReaderImpl;
 
@@ -32,7 +33,18 @@ public interface MSSpreadSheetContentReader {
 	 *                  das File im Filesystem
 	 * @return          List
 	 */
-	List<String> readContentAsLines(final File file, FileType fileType);
+	List<String> readContentAsLines(File file, FileType fileType);
+
+	/**
+	 * Ermittelt das Encoding des gegebenen Files.
+	 *
+	 * @param  pathOfFile
+	 *                    String
+	 * @param  fileType
+	 *                    FileType
+	 * @return
+	 */
+	Optional<String> detectEncoding(String pathOfFile, FileType fileType);
 
 	/**
 	 * Gibt die aktuelle Implementierung dieses Interfaces zurück.

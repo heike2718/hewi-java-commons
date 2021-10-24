@@ -5,10 +5,13 @@
 package de.egladil.web.commons_openofficetools;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -95,5 +98,20 @@ public class OpenOfficeContentReaderTest {
 				assertEquals(3, tokens.length);
 			}
 		}
+	}
+
+	@Test
+	void should_detectEncodingReturnUtf8_when_utf8() {
+
+		// Arrange
+		File file = new File("/home/heike/mkv/upload/original-files/klassenlisten/klassenliste.ods");
+
+		// Act
+		Optional<String> optEncoding = new OpenOfficeContentReader().detectEncoding(file.getAbsolutePath());
+
+		// Assert
+		assertTrue(optEncoding.isPresent());
+		assertEquals("UTF-8", optEncoding.get());
+
 	}
 }

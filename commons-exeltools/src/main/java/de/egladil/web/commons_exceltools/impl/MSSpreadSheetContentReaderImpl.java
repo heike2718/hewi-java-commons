@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.ss.usermodel.Row;
@@ -62,6 +63,14 @@ public class MSSpreadSheetContentReaderImpl implements MSSpreadSheetContentReade
 		rows.forEach(row -> result.add(rowStringConverter.apply(row)));
 
 		return result;
+	}
+
+	@Override
+	public Optional<String> detectEncoding(final String pathOfFile, final FileType fileType) {
+
+		PoiWrapper poiWrapper = PoiWrapper.createByFileType(fileType);
+
+		return poiWrapper.detectEncoding(pathOfFile);
 	}
 
 }

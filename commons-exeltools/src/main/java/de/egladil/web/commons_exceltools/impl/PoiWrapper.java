@@ -7,6 +7,7 @@ package de.egladil.web.commons_exceltools.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Row;
 
@@ -25,6 +26,15 @@ public interface PoiWrapper {
 	 * @return    List
 	 */
 	List<Row> getRows(InputStream in) throws IOException;
+
+	/**
+	 * Ermittelt das Encoding.
+	 *
+	 * @param  pathOfFile
+	 *                    String absoluter Pfad der Datei.
+	 * @return            Optional
+	 */
+	Optional<String> detectEncoding(String pathOfFile);
 
 	/**
 	 * Teilt mit, für welchen FileType dies ein Wrapper ist. Ist nützlich für Tests.

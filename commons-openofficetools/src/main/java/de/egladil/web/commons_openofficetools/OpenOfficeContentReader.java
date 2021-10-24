@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
@@ -19,6 +20,7 @@ import de.egladil.web.commons_openofficetools.exceptions.OOParserRuntimeExceptio
 import de.egladil.web.commons_openofficetools.parser.OORows2LinesMapper;
 import de.egladil.web.commons_openofficetools.parser.OpenOfficeParser;
 import de.egladil.web.commons_openofficetools.parser.OpenOfficeTableElement;
+import de.egladil.web.commons_openofficetools.parser.XmlDeclarationParser;
 
 /**
  * OpenOfficeContentReader
@@ -85,4 +87,27 @@ public class OpenOfficeContentReader {
 
 	}
 
+	/**
+	 * Ermittelt das Encoding des gegebenen Files.
+	 *
+	 * @param  pathOfFile
+	 *                    String
+	 * @return            Optional
+	 */
+	public Optional<String> detectEncoding(final String pathOfFile) {
+
+		try (InputStream in = new FileInputStream(new File(pathOfFile))) {
+
+			final String xml = new OpenOfficeParser().getContentSafe(in, 6000000);
+			int indexOfRootTag = xml.indexOf("<office:document-content");
+
+			String xmlDeclaration = xml.substring(0, indexOfRootTag);
+
+			return new XmlDeclarationParser().getEncodingFromXmlDeclaration(xmlDeclaration);
+
+		} catch (IOException e) {
+
+			throw new OOParserRuntimeException("Fehler beim Lesen der ODF-Datei: " + e.getMessage(), e);
+		}
+	}
 }
