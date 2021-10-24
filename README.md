@@ -1,5 +1,8 @@
 # hewi-java-commons
 
+_Release 1.7.2_
+
+* [Konvertierung entfernt Spalten mit numerischen Werten](https://github.com/heike2718/hewi-java-commons/issues/45)
 
 _Release 1.7.1_
 
