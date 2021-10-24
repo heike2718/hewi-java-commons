@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-exeltools</artifactId>
-	<version>1.7.1</version>
+	<version>1.7.2</version>
 	<name>commons-exeltools</name>
 
 	<properties>
