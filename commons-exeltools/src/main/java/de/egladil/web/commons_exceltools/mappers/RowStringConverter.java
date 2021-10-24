@@ -37,6 +37,18 @@ public class RowStringConverter implements Function<Row, String> {
 				all.add(cell.getStringCellValue());
 				break;
 
+			case NUMERIC:
+				all.add(cell.getNumericCellValue() + "");
+				break;
+
+			case BOOLEAN:
+				all.add(cell.getBooleanCellValue() + "");
+				break;
+
+			case BLANK:
+				all.add("");
+				break;
+
 			default:
 				break;
 			}
