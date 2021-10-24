@@ -141,7 +141,8 @@ public class OpenOfficeParser {
 					final Characters characters = event.asCharacters();
 					if (tableCellOpened) {
 
-						cellElement.setContent(characters.getData());
+						String data = characters.getData();
+						cellElement.setContent(data);
 						rowElement.addChild(cellElement);
 						cellElement = null;
 						tableCellOpened = false;

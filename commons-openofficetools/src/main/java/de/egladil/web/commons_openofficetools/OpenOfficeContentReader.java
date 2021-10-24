@@ -26,7 +26,16 @@ import de.egladil.web.commons_openofficetools.parser.OpenOfficeTableElement;
 public class OpenOfficeContentReader {
 
 	/**
-	 * Liest das OpenOfficeFile ein und extrahiert die Zeilen zu kommaseparierten Strings.
+	 * Liest das OpenOfficeFile ein und extrahiert die Zeilen zu kommaseparierten Strings.<br>
+	 * <br>
+	 * <strong>Achtung: </strong>
+	 * <ul>
+	 * <li>Leere Zeilen werden als leerer String extrahiert</li><br>
+	 * <li>Numerische Zellen werden als double-String extrahiert, enthalten also einen Dezimalpunkt. Eine Konvertierung in einen
+	 * anderen numerischen Typ oder einen String ohne Dezimalpunkt muss der Aufrufer
+	 * vornehmen</li><br>
+	 * <li>Boolsche Werte: die Formel wird als String extrahiert, ist also sinnlos!!!</li>
+	 * </ul>
 	 *
 	 * @param  File
 	 *              das File im Filesystem
