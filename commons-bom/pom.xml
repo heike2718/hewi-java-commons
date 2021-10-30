@@ -42,13 +42,7 @@
 
 			<dependency>
 				<groupId>de.egladil.web</groupId>
-				<artifactId>commons-openofficetools</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.egladil.web</groupId>
-				<artifactId>commons-exeltools</artifactId>
+				<artifactId>commons-officetools</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
