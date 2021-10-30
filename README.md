@@ -1,5 +1,9 @@
 # hewi-java-commons
 
+_Release 1.7.3_
+
+* [Encoding ermitteln](https://github.com/heike2718/hewi-java-commons/issues/47)
+
 _Release 1.7.2_
 
 * [Konvertierung entfernt Spalten mit numerischen Werten](https://github.com/heike2718/hewi-java-commons/issues/45)
