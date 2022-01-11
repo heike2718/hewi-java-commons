@@ -4,7 +4,7 @@
 // =====================================================
 package de.egladil.web.commons_mailer.impl;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

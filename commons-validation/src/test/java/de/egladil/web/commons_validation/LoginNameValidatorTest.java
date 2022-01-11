@@ -5,9 +5,9 @@
 
 package de.egladil.web.commons_validation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -105,7 +105,7 @@ public class LoginNameValidatorTest {
 
 			wert += "A";
 		}
-		assertEquals("Testsetting falsch - brauchen 256 Zeichen", 256, wert.length());
+		assertEquals(256, wert.length());
 
 		final TestObject testObject = new TestObject(wert);
 
@@ -160,7 +160,7 @@ public class LoginNameValidatorTest {
 			final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 			// Assert
-			assertTrue("Fehler bei [" + c + "]", errors.isEmpty());
+			assertTrue(errors.isEmpty(), "Fehler bei [" + c + "]");
 		}
 
 	}
@@ -182,8 +182,8 @@ public class LoginNameValidatorTest {
 			final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 			// Assert
-			assertFalse("Fehler bei [" + c + "]", errors.isEmpty());
-			assertEquals("Fehler bei ['" + c + "']", expectedNumber, errors.size());
+			assertFalse(errors.isEmpty(), "Fehler bei [" + c + "]");
+			assertEquals(expectedNumber, errors.size(), "Fehler bei ['" + c + "']");
 
 			final ConstraintViolation<TestObject> cv = errors.iterator().next();
 			LOG.error(cv.getMessage());

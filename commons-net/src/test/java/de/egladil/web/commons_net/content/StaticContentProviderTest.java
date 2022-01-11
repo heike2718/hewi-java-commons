@@ -5,7 +5,7 @@
 
 package de.egladil.web.commons_net.content;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
