@@ -5,9 +5,9 @@
 
 package de.egladil.web.commons_validation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -148,7 +148,7 @@ public class PasswortValidatorTest {
 		credentials
 			.setValue("!\\\"#$%&'()*+,-./:;<3Äüh Seite 7 als Passwort ein Satz aus einem Buch Seite 7 als Passwort hehzie nddd");
 		System.out.println("Länge = " + credentials.getValue().length());
-		assertEquals("Testsetting fehlerfaft", 101, credentials.getValue().length());
+		assertEquals(101, credentials.getValue().length());
 
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -173,7 +173,7 @@ public class PasswortValidatorTest {
 		LOG.info("Testen Passwort mit Länge 7");
 		final TestObject credentials = new TestObject();
 		credentials.setValue("=>?@eR5");
-		assertEquals("Testsetting fehlerfaft", 7, credentials.getValue().length());
+		assertEquals(7, credentials.getValue().length());
 
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -198,7 +198,7 @@ public class PasswortValidatorTest {
 		LOG.info("Testen Passwort mit Länge 7");
 		final TestObject credentials = new TestObject();
 		credentials.setValue("7gD@[\\]");
-		assertEquals("Testsetting fehlerfaft", 7, credentials.getValue().length());
+		assertEquals(7, credentials.getValue().length());
 
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -223,8 +223,8 @@ public class PasswortValidatorTest {
 		LOG.info("Testen Passwort mit führendem Leerzeichen");
 		final TestObject credentials = new TestObject();
 		credentials.setValue(" jetzt 6 hallo");
-		assertEquals("Testsetting fehlerfaft", 14, credentials.getValue().length());
-		assertEquals("Testsetting fehlerfaft", 13, credentials.getValue().trim().length());
+		assertEquals(14, credentials.getValue().length());
+		assertEquals(13, credentials.getValue().trim().length());
 
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -249,8 +249,8 @@ public class PasswortValidatorTest {
 		LOG.info("Testen Passwort mit endendem Leerzeichen");
 		final TestObject credentials = new TestObject();
 		credentials.setValue("jetzt 6 hallo ");
-		assertEquals("Testsetting fehlerfaft", 14, credentials.getValue().length());
-		assertEquals("Testsetting fehlerfaft", 13, credentials.getValue().trim().length());
+		assertEquals(14, credentials.getValue().length());
+		assertEquals(13, credentials.getValue().trim().length());
 
 		final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = validatorFactory.getValidator();
@@ -390,7 +390,7 @@ public class PasswortValidatorTest {
 			final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 			// Assert
-			assertTrue("Fehler bei [" + c + "]", errors.isEmpty());
+			assertTrue(errors.isEmpty(), "Fehler bei [" + c + "]");
 		}
 	}
 
@@ -411,7 +411,7 @@ public class PasswortValidatorTest {
 			final Set<ConstraintViolation<TestObject>> errors = validator.validate(testObject);
 
 			// Assert
-			assertFalse("Fehler bei [" + c + "]", errors.isEmpty());
+			assertFalse(errors.isEmpty(), "Fehler bei [" + c + "]");
 			assertEquals(1, errors.size());
 
 			final ConstraintViolation<TestObject> cv = errors.iterator().next();

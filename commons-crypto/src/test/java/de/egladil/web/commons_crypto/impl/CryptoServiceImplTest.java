@@ -5,10 +5,10 @@
 
 package de.egladil.web.commons_crypto.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -158,7 +158,7 @@ public class CryptoServiceImplTest {
 
 		for (int i = 0; i < erstes.length; i++) {
 
-			assertEquals("Fehler bei " + i, erstes[i], zweites[i]);
+			assertEquals(erstes[i], zweites[i], "Fehler bei " + i);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class CryptoServiceImplTest {
 			final Matcher matcher = pattern.matcher(strValue);
 			final boolean matches = matcher.matches();
 
-			assertTrue("Fehler bei " + strValue, matches);
+			assertTrue(matches, "Fehler bei " + strValue);
 		}
 	}
 

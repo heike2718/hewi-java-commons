@@ -5,7 +5,7 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-bom</artifactId>
-	<version>1.7.4</version>
+	<version>1.7.5</version>
 	<packaging>pom</packaging>
 
 	<dependencyManagement>
