@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-officetools</artifactId>
-	<version>1.7.5</version>
+	<version>1.7.6</version>
 
 	<properties>
 		<maven.compiler.source>1.11</maven.compiler.source>
@@ -15,7 +15,7 @@
 		<poi.version>4.1.2</poi.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-		<dependency-check.version>6.5.2</dependency-check.version>
+		<dependency-check.version>7.0.4</dependency-check.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<mockito.version>3.9.0</mockito.version>

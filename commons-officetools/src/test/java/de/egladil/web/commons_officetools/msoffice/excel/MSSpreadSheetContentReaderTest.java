@@ -239,6 +239,32 @@ public class MSSpreadSheetContentReaderTest {
 		}
 
 		@Test
+		void should_convertDateiMitNummernspalte() throws IOException {
+
+			try (InputStream in = getClass().getResourceAsStream("/msoffice/numeriert.xlsx")) {
+
+				List<String> zeilen = new MSSpreadSheetContentReader(FileType.EXCEL_NEU).readContentAsLines(in);
+
+				// Assert
+				assertEquals(12, zeilen.size());
+
+				zeilen.forEach(z -> System.out.println(z));
+
+				{
+
+					String[] tokens = zeilen.get(0).split(";");
+					assertEquals(5, tokens.length);
+				}
+
+				{
+
+					String[] tokens = zeilen.get(1).split(";");
+					assertEquals(5, tokens.length);
+				}
+			}
+		}
+
+		@Test
 		void should_readLinesThrowException_when_notASpreadSheetFile() throws IOException {
 
 			try (InputStream in = getClass().getResourceAsStream("/msoffice/readme.txt")) {
