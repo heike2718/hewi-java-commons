@@ -5,22 +5,23 @@
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-messager</artifactId>
-	<version>1.7.7</version>
+	<version>1.8.0</version>
 	<packaging>jar</packaging>
 
 
 	<properties>
-		<maven.compiler.source>1.11</maven.compiler.source>
-		<maven.compiler.target>1.11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.source>17</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jackson.databind.version>2.13.3</jackson.databind.version>
+		<jackson.databind.version>2.14.2</jackson.databind.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-		<dependency-check.version>7.1.1</dependency-check.version>
+		<dependency-check.version>8.1.2</dependency-check.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<mockito.version>3.9.0</mockito.version>
+		<jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
 	</properties>
 
 
@@ -47,7 +48,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
-			<version>4.7.2.Final</version>
+			<version>4.7.9.Final</version>
 		</dependency>
 
 		<dependency>
@@ -108,10 +109,24 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<release>11</release>
+
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jboss.jandex</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+				<version>${jandex-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>make-index</id>
+						<goals>
+							<goal>jandex</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -122,7 +137,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.5</version>
+				<version>0.8.8</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
