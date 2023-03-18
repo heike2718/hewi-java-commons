@@ -12,7 +12,7 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Hash;
@@ -26,7 +26,7 @@ import de.egladil.web.commons_crypto.exception.CommonCryptoException;
 /**
  * CryptoServiceImpl Wrapper für Apache Shiro
  */
-@Dependent
+@RequestScoped
 public class CryptoServiceImpl implements CryptoService {
 
 	/**
