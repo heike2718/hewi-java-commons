@@ -5,7 +5,7 @@
 
 package de.egladil.web.commons_validation;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 
 import de.egladil.web.commons_validation.annotations.Passwort;
 

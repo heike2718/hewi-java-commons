@@ -4,9 +4,9 @@
 // =====================================================
 package de.egladil.web.commons_validation;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 /**
  * AbstractValidatorTest

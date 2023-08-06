@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

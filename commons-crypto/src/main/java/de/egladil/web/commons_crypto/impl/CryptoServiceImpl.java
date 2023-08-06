@@ -12,8 +12,6 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.enterprise.context.RequestScoped;
-
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.util.ByteSource;
@@ -22,6 +20,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import de.egladil.web.commons_crypto.CryptoService;
 import de.egladil.web.commons_crypto.PasswordAlgorithm;
 import de.egladil.web.commons_crypto.exception.CommonCryptoException;
+import jakarta.enterprise.context.RequestScoped;
 
 /**
  * CryptoServiceImpl Wrapper für Apache Shiro

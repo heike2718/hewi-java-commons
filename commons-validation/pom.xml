@@ -17,27 +17,27 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
-		<jackson.databind.version>2.14.2</jackson.databind.version>
+		<jackson.databind.version>2.15.2</jackson.databind.version>
 		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 		<dependency-check.version>8.1.2</dependency-check.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<mockito.version>3.9.0</mockito.version>
-		<jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
+		<jandex-maven-plugin.version>3.1.2</jandex-maven-plugin.version>
 	</properties>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.el</artifactId>
-			<version>3.0.4</version>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>10.0.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.2.3.Final</version>
+    		<groupId>io.quarkus</groupId>
+    		<artifactId>quarkus-hibernate-validator</artifactId>
+    		<version>3.2.3.Final</version>
 		</dependency>
 
 		<dependency>
@@ -92,6 +92,14 @@
 		<!-- Test -->
 
 		<!-- api muss dabei sein, damit das surefire-plugin die tests findet! -->
+
+		<dependency>
+    		<groupId>org.glassfish</groupId>
+    		<artifactId>jakarta.el</artifactId>
+    		<version>5.0.0-M1</version>
+    		<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.eclipse.microprofile.jwt</groupId>
 			<artifactId>microprofile-jwt-auth-api</artifactId>
@@ -143,7 +151,7 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.jboss.jandex</groupId>
+				<groupId>io.smallrye</groupId>
 				<artifactId>jandex-maven-plugin</artifactId>
 				<version>${jandex-maven-plugin.version}</version>
 				<executions>

@@ -7,8 +7,8 @@ package de.egladil.web.commons_validation;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import de.egladil.web.commons_validation.annotations.UuidList;
 

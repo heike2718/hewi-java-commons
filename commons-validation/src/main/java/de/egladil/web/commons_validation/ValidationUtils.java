@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

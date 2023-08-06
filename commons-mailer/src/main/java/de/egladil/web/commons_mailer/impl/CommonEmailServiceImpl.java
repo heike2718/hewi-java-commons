@@ -8,16 +8,6 @@ package de.egladil.web.commons_mailer.impl;
 import java.util.Collection;
 import java.util.Properties;
 
-import javax.enterprise.context.Dependent;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.SendFailedException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +18,15 @@ import de.egladil.web.commons_mailer.EmailServiceCredentials;
 import de.egladil.web.commons_mailer.exception.EmailConfigurationException;
 import de.egladil.web.commons_mailer.exception.EmailException;
 import de.egladil.web.commons_mailer.exception.InvalidMailAddressException;
+import jakarta.enterprise.context.Dependent;
+import jakarta.mail.Address;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  * CommonEmailServiceImpl

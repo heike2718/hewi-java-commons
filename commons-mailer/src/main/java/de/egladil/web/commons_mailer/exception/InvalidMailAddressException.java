@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.mail.Address;
-import javax.mail.SendFailedException;
+import jakarta.mail.Address;
+import jakarta.mail.SendFailedException;
 
 /**
  * InvalidMailAddressException

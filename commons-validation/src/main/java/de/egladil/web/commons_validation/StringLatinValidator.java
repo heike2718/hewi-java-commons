@@ -7,7 +7,7 @@ package de.egladil.web.commons_validation;
 
 import java.util.regex.Matcher;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 
 import org.apache.commons.validator.routines.UrlValidator;
 

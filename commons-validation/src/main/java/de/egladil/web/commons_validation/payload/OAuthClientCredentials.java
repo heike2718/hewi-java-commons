@@ -4,8 +4,8 @@
 // =====================================================
 package de.egladil.web.commons_validation.payload;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import de.egladil.web.commons_validation.SecUtils;
 import de.egladil.web.commons_validation.annotations.ClientId;

@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 
-import javax.ws.rs.core.UriBuilder;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +27,7 @@ import de.egladil.web.commons_messager.MessagerType;
 import de.egladil.web.commons_messager.TelegramConfigKeys;
 import de.egladil.web.commons_messager.exception.MessagerConfigurationException;
 import de.egladil.web.commons_messager.exception.MessagerException;
+import jakarta.ws.rs.core.UriBuilder;
 
 /**
  * TelegramMessager

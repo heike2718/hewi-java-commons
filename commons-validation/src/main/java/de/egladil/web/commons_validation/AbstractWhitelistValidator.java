@@ -9,8 +9,8 @@ import java.lang.annotation.Annotation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * AbstractWhitelistValidator validiert Strings gegen eine Whitelist. Ist der Wert null oder leer, wird er als valid

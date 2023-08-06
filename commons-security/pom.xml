@@ -20,7 +20,7 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<mockito.version>3.1.0</mockito.version>
-		<jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
+		<jandex-maven-plugin.version>3.1.2</jandex-maven-plugin.version>
 	</properties>
 
 
@@ -81,7 +81,7 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.jboss.jandex</groupId>
+				<groupId>io.smallrye</groupId>
 				<artifactId>jandex-maven-plugin</artifactId>
 				<version>${jandex-maven-plugin.version}</version>
 				<executions>

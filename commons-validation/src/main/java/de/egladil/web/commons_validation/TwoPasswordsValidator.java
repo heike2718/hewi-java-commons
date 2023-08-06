@@ -5,8 +5,8 @@
 
 package de.egladil.web.commons_validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import de.egladil.web.commons_validation.annotations.ValidPasswords;
 import de.egladil.web.commons_validation.payload.TwoPasswords;
