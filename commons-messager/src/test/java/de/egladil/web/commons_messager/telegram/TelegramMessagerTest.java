@@ -164,7 +164,8 @@ public class TelegramMessagerTest {
 
 		// Arrange
 		Map<String, String> config = messager.buildConfiguration(this.loadProperties());
-		String message = "Das ist ein Text aus dem JUnitTest vom " + LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+		String message = "Das ist ein Text aus dem TelegramMessagerTest vom "
+			+ LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
 
 		// Act
 		messager.sendMessage(message, config);

@@ -79,22 +79,22 @@ public class TelegramMessager implements Messager {
 			.version(HttpClient.Version.HTTP_2)
 			.build();
 
-		UriBuilder builder = UriBuilder
-			.fromUri(configuration.get(TelegramConfigKeys.FROM_URI))
-			.path(configuration.get(TelegramConfigKeys.PATH))
-			.queryParam(TelegramConfigKeys.QUERY_PARAM_CHAT_ID,
-				configuration.get(TelegramConfigKeys.QUERY_PARAM_CHAT_ID))
-			.queryParam("text", messageText);
-
-		String telegramSecret = configuration.get(TelegramConfigKeys.SECRET);
-
-		HttpRequest request = HttpRequest.newBuilder()
-			.GET()
-			.uri(builder.build("bot" + telegramSecret))
-			.timeout(Duration.ofSeconds(5))
-			.build();
-
 		try {
+
+			UriBuilder builder = UriBuilder
+				.fromUri(configuration.get(TelegramConfigKeys.FROM_URI))
+				.path(configuration.get(TelegramConfigKeys.PATH))
+				.queryParam(TelegramConfigKeys.QUERY_PARAM_CHAT_ID,
+					configuration.get(TelegramConfigKeys.QUERY_PARAM_CHAT_ID))
+				.queryParam("text", messageText);
+
+			String telegramSecret = configuration.get(TelegramConfigKeys.SECRET);
+
+			HttpRequest request = HttpRequest.newBuilder()
+				.GET()
+				.uri(builder.build("bot" + telegramSecret))
+				.timeout(Duration.ofSeconds(5))
+				.build();
 
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -103,6 +103,11 @@ public class TelegramMessager implements Messager {
 		} catch (IOException | InterruptedException e) {
 
 			String msg = "Message konnte nicht gesendet werden: " + e.getMessage();
+			throw new MessagerException(msg, e);
+		} catch (Exception e) {
+
+			String msg = "Unerwartete Exception beim telegrammen einer Message: " + e.getMessage();
+			LOG.error(msg, e);
 			throw new MessagerException(msg, e);
 		}
 	}
