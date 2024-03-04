@@ -93,7 +93,7 @@ public interface StringLatinConstants {
 	String DIGITS = "0123456789";
 
 	/** alle Sonderzeichen */
-	String SPECIALS = "\" \\-_\\.,'`'\\@()/‘+:;<=>\\[\\]{}!#$§%&\\*\\?\\\\^|~°";
+	String SPECIALS = "\" \\-_\\.,'`'\\@()/‘+:;=\\[\\]{}!#$§%&\\*\\?\\\\^|~°";
 
 	/**
 	 * Alle Buchstaben und diakritischen Zeichen aus StringLatin, alle Ziffern, Leerzeichen, Minus, Unterstrich, Punkt, Komma,

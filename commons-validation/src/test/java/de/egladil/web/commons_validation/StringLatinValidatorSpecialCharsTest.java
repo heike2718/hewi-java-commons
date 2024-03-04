@@ -11,17 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons_validation.annotations.StringLatin;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 /**
  * StringLatinValidatorSpecialCharsTest
@@ -33,7 +32,7 @@ public class StringLatinValidatorSpecialCharsTest {
 	private static final String INVALID_CHARS = "";
 
 	// Leerzeichen, Minus, Unterstrich, Punkt, Komma, Apostrophe, at
-	private static final String VALID_CHARS = "\"@- _.,'`'‘+:;<=>()[]{}!#$%&*?\\^|~°$%§";
+	private static final String VALID_CHARS = "\"@- _.,'`'‘+:;=()[]{}!#$%&*?\\^|~°$%§";
 
 	private class TestObject {
 

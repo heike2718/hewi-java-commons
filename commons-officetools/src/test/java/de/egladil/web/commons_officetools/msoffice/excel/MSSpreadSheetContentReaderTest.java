@@ -274,7 +274,7 @@ public class MSSpreadSheetContentReaderTest {
 			} catch (OfficeToolsRuntimeException e) {
 
 				assertEquals(
-					"Fehler beim Lesen einer MSOffice-Datei: No valid entries or contents found, this is not a valid OOXML (Office Open XML) file",
+					"Fehler beim Lesen einer MSOffice-Datei: Cannot find zip signature within the file",
 					e.getMessage());
 			}
 
@@ -288,8 +288,11 @@ public class MSSpreadSheetContentReaderTest {
 		@Test
 		void should_readLinesThrowException_whenIOException() {
 
+			// File file = new File(
+			// "/home/heike/git/testdaten/minikaenguru/upload/mit-ueberschrift-fehlerhaft.csv/");
+
 			File file = new File(
-				"/home/heike/git/testdaten/minikaenguru/auswertungen/fehlerhaft/upload/mit-ueberschrift-fehlerhaft.csv/");
+				"/home/heike/git/testdaten/minikaenguru/upload/klassenliste.ods");
 
 			try {
 
@@ -298,7 +301,7 @@ public class MSSpreadSheetContentReaderTest {
 			} catch (OfficeToolsRuntimeException e) {
 
 				assertEquals(
-					"Fehler beim Lesen einer MSOffice-Datei: No valid entries or contents found, this is not a valid OOXML (Office Open XML) file",
+					"Fehler beim Lesen einer MSOffice-Datei: The supplied data appears to be in ODF (Open Document) Format. Formats like these (eg ODS, ODP) are not supported, try Apache ODFToolkit",
 					e.getMessage());
 			}
 		}
@@ -306,7 +309,7 @@ public class MSSpreadSheetContentReaderTest {
 		@Test
 		void should_readLinesThrowException_whenOpenOfficeFile() {
 
-			File file = new File("/home/heike/git/testdaten/minikaenguru/auswertungen/korrekt/upload/auswertung.ods");
+			File file = new File("/home/heike/git/testdaten/minikaenguru/upload/auswertung.ods");
 
 			try {
 

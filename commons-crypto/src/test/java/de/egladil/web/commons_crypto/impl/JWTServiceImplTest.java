@@ -14,14 +14,14 @@ import java.io.StringWriter;
 import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
-import org.eclipse.microprofile.jwt.Claims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+
+import de.egladil.web.commons_crypto.DecodedJWTReader;
 
 /**
  * JWTServiceImplTest
@@ -60,9 +60,10 @@ public class JWTServiceImplTest {
 			String uuid = decodedJWT.getSubject();
 			assertEquals("20721575-8c45-4201-a025-7a9fece1f2aa", uuid);
 
-			Claim groupsClaim = decodedJWT.getClaim(Claims.groups.name());
+			DecodedJWTReader reader = new DecodedJWTReader(decodedJWT);
 
-			String[] roles = groupsClaim.asArray(String.class);
+			String[] roles = reader.getGroups();
+
 			assertEquals(4, roles.length);
 
 			assertEquals("ADMIN", roles[0]);
@@ -70,7 +71,7 @@ public class JWTServiceImplTest {
 			assertEquals("STANDARD", roles[2]);
 			assertEquals("SUBSCRIBER", roles[3]);
 
-			String fullName = decodedJWT.getClaim(Claims.full_name.name()).asString();
+			String fullName = reader.getFullName();
 			assertEquals("Checki Palletti", fullName);
 		} catch (TokenExpiredException e) {
 
@@ -89,7 +90,7 @@ public class JWTServiceImplTest {
 			fail("keine JWTDecodeException");
 		} catch (JWTDecodeException e) {
 
-			assertEquals("The token was expected to have 3 parts, but got 1.", e.getMessage());
+			assertEquals("The token was expected to have 3 parts, but got 0.", e.getMessage());
 		}
 
 	}
@@ -106,7 +107,7 @@ public class JWTServiceImplTest {
 			service.verify(expiredJwt, publicKey);
 		} catch (TokenExpiredException e) {
 
-			assertEquals("The Token has expired on Mon Apr 13 15:02:32 CEST 2020.", e.getMessage());
+			assertEquals("The Token has expired on 2020-04-13T13:02:32Z.", e.getMessage());
 		}
 
 	}

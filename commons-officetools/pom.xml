@@ -5,45 +5,47 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-officetools</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<poi.version>5.2.3</poi.version>
+		<poi.version>5.2.5</poi.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-		<dependency-check.version>8.1.2</dependency-check.version>
+		<dependency-check.version>9.0.9</dependency-check.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<mockito.version>3.9.0</mockito.version>
 		<jandex-maven-plugin.version>3.1.2</jandex-maven-plugin.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.13.0</version>
+			<version>2.15.1</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.13.0</version>
+			<version>3.14.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
-			<version>1.23.0</version>
+			<version>1.26.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.santuario</groupId>
 			<artifactId>xmlsec</artifactId>
-			<version>3.0.1</version>
+			<version>4.0.2</version>
 		</dependency>
 
 
@@ -169,9 +171,11 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
+							<!-- Sets the path to the file which contains the
+							execution data. -->
 							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
+							<!-- Sets the output directory for the code coverage
+							report. -->
 							<outputDirectory>target/jacoco-out</outputDirectory>
 						</configuration>
 					</execution>

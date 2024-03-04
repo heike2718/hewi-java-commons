@@ -11,15 +11,14 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Cookie;
-import jakarta.ws.rs.core.NewCookie;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.egladil.web.commons_net.time.CommonTimeUtils;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.NewCookie;
 
 /**
  * CommonHttpUtils
@@ -145,19 +144,14 @@ public final class CommonHttpUtils {
 		LOG.debug("Erzeugen Cookie mit name={} und Wert null", name);
 
 		// @formatter:off
-		NewCookie invalidationCookie = new NewCookie(name,
-			null,
-			null,
-			null,
-			1,
-			null,
-			0,
-			new Date(dateInThePast),
-			true,
-			true);
-		//@formatter:on
-
-		return invalidationCookie;
+		return new NewCookie.Builder(name)
+			.maxAge(0) // maximum age of the cookie in seconds
+			.expiry(new Date(dateInThePast))
+			.version(1)
+			.httpOnly(true)
+			.secure(true)
+			.build();
+		// @formatter:on
 	}
 
 	/**

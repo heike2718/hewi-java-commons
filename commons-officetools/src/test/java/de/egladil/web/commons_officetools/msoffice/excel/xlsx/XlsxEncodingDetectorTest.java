@@ -39,7 +39,7 @@ public class XlsxEncodingDetectorTest {
 
 		// Arrange
 		File file = new File(
-			"/home/heike/git/hewi-java-commons/commons-officetools/src/test/resources/msoffice/excel-codepages/excel-codepage-test-01.xlsx");
+			"/home/heike/git/hewi-java-commons/java-17/hewi-java-commons/commons-officetools/src/test/resources/msoffice/excel-codepages/excel-codepage-test-01.xlsx");
 		assertTrue(file.isFile());
 		assertTrue(file.canWrite());
 		assertTrue(file.canRead());
@@ -57,7 +57,7 @@ public class XlsxEncodingDetectorTest {
 
 		// Arrange
 		File file = new File(
-			"/home/heike/git/hewi-java-commons/commons-officetools/src/test/resources/msoffice/excel-codepages/excel-codepage-test-05-US-ASCII.xlsx");
+			"/home/heike/git/hewi-java-commons/java-17/hewi-java-commons/commons-officetools/src/test/resources/msoffice/excel-codepages/excel-codepage-test-05-US-ASCII.xlsx");
 		assertTrue(file.isFile());
 		assertTrue(file.canWrite());
 		assertTrue(file.canRead());
