@@ -6,15 +6,22 @@
 package de.egladil.web.commons_crypto.impl;
 
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.authc.credential.PasswordService;
+import org.apache.shiro.crypto.hash.AbstractCryptHash;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
-import org.apache.shiro.crypto.hash.HashService;
+import org.apache.shiro.crypto.hash.HashSpi.HashFactory;
+import org.apache.shiro.crypto.hash.SimpleHashProvider;
 import org.apache.shiro.crypto.hash.SimpleHashRequest;
+import org.apache.shiro.crypto.support.hashes.argon2.Argon2HashProvider;
 import org.apache.shiro.lang.util.ByteSource;
 import org.apache.shiro.lang.util.SimpleByteSource;
 
@@ -26,11 +33,13 @@ import de.egladil.web.commons_crypto.PasswordAlgorithm;
  */
 public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
+	private final Random random = new SecureRandom();
+
+	private final Integer numberIterations;
+
 	private final String pepper;
 
 	private final String algorithmName;
-
-	private final Map<String, Object> hashParameters = new HashMap<>();
 
 	/**
 	 * Erzeugt eine Instanz von PasswordAlgorithmImpl
@@ -54,14 +63,92 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
 		this.pepper = pepper;
 		this.algorithmName = algorithmName;
-		hashParameters.put("iterations", Integer.valueOf(numberIterations));
+		this.numberIterations = Integer.valueOf(numberIterations);
 	}
 
 	@Override
 	public boolean verifyPassword(final char[] password, final String persistentHashValue, final String persistentSalt, final CryptoVersion cryptoVersion) {
 
+		switch (cryptoVersion) {
+
+		case SHA_256:
+
+			return verifyPasswordSha256(password, persistentHashValue, persistentSalt);
+
+		case ARGON_2:
+			return verifyPasswordArgon2(password, persistentHashValue);
+
+		default:
+			throw new IllegalArgumentException("unexpected CryptoVersion " + cryptoVersion.toString());
+		}
+
+	}
+
+	@Override
+	public Hash hashPassword(final char[] password, final ByteSource salt, final CryptoVersion cryptpVersion) {
+
+		if (password == null || password.length == 0) {
+
+			throw new IllegalArgumentException("password null oder leer");
+		}
+
+		switch (cryptpVersion) {
+
+		case SHA_256:
+
+			return this.hashPasswordSha256(password, salt);
+
+		case ARGON_2:
+			return this.hashPasswordArgon2(password);
+
+		default:
+			throw new IllegalArgumentException("unexpected CryptoVersion " + cryptpVersion.toString());
+		}
+	}
+
+	Hash hashPasswordSha256(final char[] password, final ByteSource salt) {
+
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("SimpleHash.iterations", numberIterations);
+		// parameters.put("SimpleHash.secretSalt", pepper);
+
+		final SimpleByteSource passwdByteSource = new SimpleByteSource(pepper + new String(password));
+		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, parameters);
+
+		HashFactory hashFactory = new SimpleHashProvider().newHashFactory(random);
+
+		final Hash hash = hashFactory.generate(hashRequest);
+		return hash;
+
+	}
+
+	Hash hashPasswordArgon2(final char[] password) {
+
+		String pepperedPassword = getPepperedPassword(password);
+		System.out.println(">>>>> hashPasswordArgon2: " + pepperedPassword + " <<<<<");
+		final SimpleByteSource passwdByteSource = new SimpleByteSource(pepperedPassword);
+		HashRequest hashRequest = new HashRequest.Builder()
+			.setSource(passwdByteSource)
+			.build();
+
+		HashFactory hashFactory = new Argon2HashProvider().newHashFactory(random);
+
+		final Hash hash = hashFactory.generate(hashRequest);
+
+		System.out.println(">>>>> hashPasswordArgon2: " + ((AbstractCryptHash) hash).formatToCryptString() + " <<<<<");
+
+		return hash;
+
+	}
+
+	boolean verifyPasswordSha256(final char[] password, final String persistentHashValue, final String persistentSalt) {
+
 		final ByteSource salt = new SimpleByteSource(Base64.getDecoder().decode(persistentSalt));
-		final Hash expectedHash = hashPassword(password, salt);
+		final ByteSource bsPepper = new SimpleByteSource(pepper);
+
+		ByteSource combined = combinePepperAndSalt(bsPepper, salt);
+
+		final Hash expectedHash = hashPassword(password, combined, CryptoVersion.SHA_256);
 		final String expectedHashValue = new SimpleByteSource(expectedHash.getBytes()).toBase64();
 
 		if (MessageDigest.isEqual(expectedHashValue.getBytes(), persistentHashValue.getBytes())) {
@@ -69,29 +156,51 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 			return true;
 		}
 		return false;
-
 	}
 
-	@Override
-	public Hash hashPassword(final char[] password, final ByteSource salt) {
+	boolean verifyPasswordArgon2(final char[] password, final String persistentHashValue) {
 
-		if (password == null || password.length == 0) {
+		PasswordService passwordService = new DefaultPasswordService();
+		String pepperedPassword = getPepperedPassword(password);
+		System.out.println(">>>>> verifyPasswordArgon2: " + pepperedPassword + " <<<<<");
+		System.out.println(">>>>> verifyPasswordArgon2: persistentHashValue = " + persistentHashValue + " <<<<<");
+		return passwordService.passwordsMatch(pepperedPassword, persistentHashValue);
+	}
 
-			throw new IllegalArgumentException("password null oder leer");
+	private String getPepperedPassword(final char[] password) {
+
+		return pepper + new String(password);
+	}
+
+	public String getPepper() {
+
+		return pepper;
+	}
+
+	// Pseudocode from older Shiro 1.x:
+	ByteSource combinePepperAndSalt(final ByteSource pepper, final ByteSource publicSalt) {
+
+		if (pepper == null && publicSalt == null) {
+
+			return null;
 		}
 
-		final HashService hashService = getHashService();
-		final SimpleByteSource passwdByteSource = new SimpleByteSource(password);
-		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, hashParameters);
+		if (pepper == null) {
 
-		final Hash hash = hashService.computeHash(hashRequest);
-		return hash;
-	}
+			return publicSalt;
+		}
 
-	private HashService getHashService() {
+		if (publicSalt == null) {
 
-		final PepperHashService hashService = new PepperHashService(algorithmName, pepper, hashParameters);
-		return hashService;
+			return pepper;
+		}
+		// both non-null:
+		byte[] privateBytes = pepper.getBytes();
+		byte[] publicBytes = publicSalt.getBytes();
+		byte[] combined = new byte[privateBytes.length + publicBytes.length];
+		System.arraycopy(privateBytes, 0, combined, 0, privateBytes.length);
+		System.arraycopy(publicBytes, 0, combined, privateBytes.length, publicBytes.length);
+		return new SimpleByteSource(combined);
 	}
 
 }

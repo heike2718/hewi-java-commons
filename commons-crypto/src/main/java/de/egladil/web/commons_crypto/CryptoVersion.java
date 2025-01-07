@@ -9,6 +9,6 @@ package de.egladil.web.commons_crypto;
  */
 public enum CryptoVersion {
 
-	SHIRO_1,
-	SHIRO_2;
+	SHA_256,
+	ARGON_2;
 }

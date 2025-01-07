@@ -35,5 +35,7 @@ public interface PasswordAlgorithm {
 	 *                  ByteSource das Salz
 	 * @return          Hash
 	 */
-	Hash hashPassword(final char[] password, final ByteSource salt);
+	Hash hashPassword(final char[] password, final ByteSource salt, final CryptoVersion cryptpVersion);
+
+	String getPepper();
 }

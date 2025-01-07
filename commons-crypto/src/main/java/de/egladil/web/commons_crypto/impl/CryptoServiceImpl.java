@@ -12,8 +12,11 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
 
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
+import org.apache.shiro.crypto.support.hashes.argon2.Argon2HashProvider;
 import org.apache.shiro.lang.util.ByteSource;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -38,13 +41,26 @@ public class CryptoServiceImpl implements CryptoService {
 	}
 
 	@Override
-	public Hash hashPassword(final PasswordAlgorithm algorithm, final char[] password, final ByteSource salt) {
+	public Hash hashPassword(final PasswordAlgorithm algorithm, final char[] password, final ByteSource salt, final CryptoVersion cryptoVersion) {
 
-		return algorithm.hashPassword(password, salt);
+		if (CryptoVersion.ARGON_2 == cryptoVersion) {
+
+			String pepperedPassword = algorithm.getPepper() + new String(password);
+			return createArgon2PasswordService().hashPassword(pepperedPassword);
+
+		}
+
+		return algorithm.hashPassword(password, salt, cryptoVersion);
 	}
 
 	@Override
 	public boolean verifyPassword(final PasswordAlgorithm algorithm, final char[] password, final String persistentHashValue, final String persistentSalt, final CryptoVersion cryptoVersion) {
+
+		if (CryptoVersion.ARGON_2 == cryptoVersion) {
+
+			String pepperedPassword = algorithm.getPepper() + new String(password);
+			return createArgon2PasswordService().passwordsMatch(pepperedPassword, persistentHashValue);
+		}
 
 		return algorithm.verifyPassword(password, persistentHashValue, persistentSalt, cryptoVersion);
 	}
@@ -118,4 +134,14 @@ public class CryptoServiceImpl implements CryptoService {
 		return new String(result);
 	}
 
+	DefaultPasswordService createArgon2PasswordService() {
+
+		DefaultHashService hashService = new DefaultHashService();
+		hashService.setDefaultAlgorithmName(Argon2HashProvider.Parameters.DEFAULT_ALGORITHM_NAME);
+
+		DefaultPasswordService passwordService = new DefaultPasswordService();
+		passwordService.setHashService(hashService);
+
+		return passwordService;
+	}
 }

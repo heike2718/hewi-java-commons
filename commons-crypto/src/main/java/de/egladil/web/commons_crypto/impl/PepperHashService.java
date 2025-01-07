@@ -4,11 +4,14 @@
 // =====================================================
 package de.egladil.web.commons_crypto.impl;
 
+import java.security.SecureRandom;
 import java.util.Map;
 
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
+import org.apache.shiro.crypto.hash.HashSpi.HashFactory;
+import org.apache.shiro.crypto.hash.SimpleHashProvider;
 import org.apache.shiro.crypto.hash.SimpleHashRequest;
 import org.apache.shiro.lang.util.ByteSource;
 import org.apache.shiro.lang.util.SimpleByteSource;
@@ -46,6 +49,14 @@ public class PepperHashService extends DefaultHashService {
 		HashRequest mergedRequest = new SimpleHashRequest(algorithmName, request.getSource(), userSalt, hashParameters);
 
 		return super.computeHash(mergedRequest);
+	}
+
+	private Hash computeWithShiro(final HashRequest request) {
+
+		SimpleHashProvider hashProvider = new SimpleHashProvider();
+		HashFactory hashFactory = hashProvider.newHashFactory(new SecureRandom());
+		return hashFactory.generate(request);
+
 	}
 
 	/**

@@ -26,7 +26,7 @@ public interface CryptoService {
 	 *                   ByteSource
 	 * @return           Hash
 	 */
-	Hash hashPassword(PasswordAlgorithm algorithm, char[] password, ByteSource salt);
+	Hash hashPassword(PasswordAlgorithm algorithm, char[] password, ByteSource salt, CryptoVersion cryptoVersion);
 
 	/**
 	 * Prüft das gegebene Passwort gegen das persistierte Passwort.<br>
