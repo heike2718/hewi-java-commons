@@ -19,6 +19,7 @@ import org.apache.shiro.crypto.hash.AbstractCryptHash;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.HashSpi.HashFactory;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.crypto.hash.SimpleHashProvider;
 import org.apache.shiro.crypto.hash.SimpleHashRequest;
 import org.apache.shiro.crypto.support.hashes.argon2.Argon2HashProvider;
@@ -113,6 +114,7 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 		// parameters.put("SimpleHash.secretSalt", pepper);
 
 		final SimpleByteSource passwdByteSource = new SimpleByteSource(pepper + new String(password));
+
 		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, parameters);
 
 		HashFactory hashFactory = new SimpleHashProvider().newHashFactory(random);
@@ -143,12 +145,15 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
 	boolean verifyPasswordSha256(final char[] password, final String persistentHashValue, final String persistentSalt) {
 
-		final ByteSource salt = new SimpleByteSource(Base64.getDecoder().decode(persistentSalt));
-		final ByteSource bsPepper = new SimpleByteSource(pepper);
+		ByteSource bsPwd = ByteSource.Util.bytes(new String(password));
+		ByteSource bsSalt = ByteSource.Util.bytes(Base64.getDecoder().decode(persistentSalt));
 
-		ByteSource combined = combinePepperAndSalt(bsPepper, salt);
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("SimpleHash.iterations", numberIterations);
 
-		final Hash expectedHash = hashPassword(password, combined, CryptoVersion.SHA_256);
+		HashRequest hashRequest = new SimpleHashRequest(algorithmName, bsPwd, bsSalt, parameters);
+		Hash expectedHash = this.computeHash(hashRequest);
+
 		final String expectedHashValue = new SimpleByteSource(expectedHash.getBytes()).toBase64();
 
 		if (MessageDigest.isEqual(expectedHashValue.getBytes(), persistentHashValue.getBytes())) {
@@ -177,30 +182,62 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 		return pepper;
 	}
 
-	// Pseudocode from older Shiro 1.x:
 	ByteSource combinePepperAndSalt(final ByteSource pepper, final ByteSource publicSalt) {
 
-		if (pepper == null && publicSalt == null) {
+		byte[] privateSaltBytes = pepper != null ? pepper.getBytes() : null;
+		int privateSaltLength = privateSaltBytes != null ? privateSaltBytes.length : 0;
+
+		byte[] publicSaltBytes = publicSalt != null ? publicSalt.getBytes() : null;
+		int extraBytesLength = publicSaltBytes != null ? publicSaltBytes.length : 0;
+
+		int length = privateSaltLength + extraBytesLength;
+
+		if (length <= 0) {
 
 			return null;
 		}
 
-		if (pepper == null) {
+		byte[] combined = new byte[length];
 
-			return publicSalt;
+		int i = 0;
+
+		for (int j = 0; j < privateSaltLength; j++) {
+
+			assert privateSaltBytes != null;
+			combined[i++] = privateSaltBytes[j];
 		}
 
-		if (publicSalt == null) {
+		for (int j = 0; j < extraBytesLength; j++) {
 
-			return pepper;
+			assert publicSaltBytes != null;
+			combined[i++] = publicSaltBytes[j];
 		}
-		// both non-null:
-		byte[] privateBytes = pepper.getBytes();
-		byte[] publicBytes = publicSalt.getBytes();
-		byte[] combined = new byte[privateBytes.length + publicBytes.length];
-		System.arraycopy(privateBytes, 0, combined, 0, privateBytes.length);
-		System.arraycopy(publicBytes, 0, combined, privateBytes.length, publicBytes.length);
-		return new SimpleByteSource(combined);
+
+		return ByteSource.Util.bytes(combined);
+	}
+
+	Hash computeHash(final HashRequest request) {
+
+		if (request == null || request.getSource() == null || request.getSource().isEmpty()) {
+
+			return null;
+		}
+
+		ByteSource source = request.getSource();
+
+		ByteSource publicSalt = request.getSalt().get();
+		ByteSource privateSalt = new SimpleByteSource(pepper);
+		ByteSource combinedPepperAndSalt = combinePepperAndSalt(privateSalt, publicSalt);
+
+		Hash computed = new SimpleHash(algorithmName, source, combinedPepperAndSalt, numberIterations);
+
+		SimpleHash result = new SimpleHash(algorithmName);
+		result.setBytes(computed.getBytes());
+		result.setIterations(numberIterations);
+		// Only expose the public salt - not the real/combined salt that might have been used:
+		result.setSalt(publicSalt);
+
+		return result;
 	}
 
 }
