@@ -16,10 +16,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import de.egladil.web.commons_validation.PasswortValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
-import de.egladil.web.commons_validation.PasswortValidator;
 
 /**
  * mindestens 8 Zeichen, höchstens 100 Zeichen, mindestens ein Buchstabe, mindestens eine Ziffer, keine Leerzeichen<br>
@@ -31,6 +30,7 @@ import de.egladil.web.commons_validation.PasswortValidator;
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Constraint(validatedBy = { PasswortValidator.class })
+@Deprecated(forRemoval = true)
 public @interface Passwort {
 
 	String message() default "{de.egladil.constraints.passwort}";

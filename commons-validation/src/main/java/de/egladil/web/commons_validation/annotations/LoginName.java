@@ -16,10 +16,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import de.egladil.web.commons_validation.LoginNameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
-import de.egladil.web.commons_validation.LoginNameValidator;
 
 /**
  * Whitelist für Benutzernamen: Buchstaben, Ziffern, deutsche Umlaute sowie Unterstrich, Leerzeichen, Minus, Punkt,
@@ -29,6 +28,7 @@ import de.egladil.web.commons_validation.LoginNameValidator;
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Constraint(validatedBy = { LoginNameValidator.class })
+@Deprecated(forRemoval = true)
 public @interface LoginName {
 
 	String message() default "{de.egladil.constraints.username}";

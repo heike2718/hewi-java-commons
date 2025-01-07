@@ -16,6 +16,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * AbstractWhitelistValidator validiert Strings gegen eine Whitelist. Ist der Wert null oder leer, wird er als valid
  * angesehen. Bei Pflichtattributen müssen also zusätzliche Annotationen angebracht werden.
  */
+@Deprecated(forRemoval = true)
 public abstract class AbstractWhitelistValidator<A extends Annotation, T> implements ConstraintValidator<A, T> {
 
 	/**

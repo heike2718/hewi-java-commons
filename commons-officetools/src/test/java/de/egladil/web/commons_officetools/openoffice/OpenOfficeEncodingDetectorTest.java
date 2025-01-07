@@ -21,7 +21,7 @@ public class OpenOfficeEncodingDetectorTest {
 	void should_detectEncodingReturnUtf8_when_utf8() {
 
 		// Arrange
-		File file = new File("/home/heike/mkv/upload/original-files/klassenlisten/klassenliste.ods");
+		File file = new File("/media/veracrypt1/mkv/upload/original-files/klassenlisten/klassenliste.ods");
 
 		// Act
 		Optional<String> optEncoding = new OpenOfficeEncodingDetector().detectEncoding(file.getAbsolutePath());

@@ -4,15 +4,15 @@
 // =====================================================
 package de.egladil.web.commons_validation.payload;
 
-import jakarta.validation.constraints.NotNull;
-
 import de.egladil.web.commons_validation.SecUtils;
 import de.egladil.web.commons_validation.annotations.Passwort;
 import de.egladil.web.commons_validation.annotations.ValidPasswords;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * TwoStringsPayload
  */
+@Deprecated(forRemoval = true)
 @ValidPasswords
 public class TwoPasswords {
 

@@ -11,10 +11,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import de.egladil.web.commons_validation.TwoPasswordsValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
-import de.egladil.web.commons_validation.TwoPasswordsValidator;
 
 /**
  * Zwei passwörter sind valid, wenn sie gleich sind.
@@ -23,6 +22,7 @@ import de.egladil.web.commons_validation.TwoPasswordsValidator;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = TwoPasswordsValidator.class)
 @Documented
+@Deprecated(forRemoval = true)
 public @interface ValidPasswords {
 
 	String message() default "";

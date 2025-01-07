@@ -4,16 +4,16 @@
 // =====================================================
 package de.egladil.web.commons_validation.payload;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import de.egladil.web.commons_validation.SecUtils;
 import de.egladil.web.commons_validation.annotations.ClientId;
 import de.egladil.web.commons_validation.annotations.UuidString;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * OAuthClientCredentials
  */
+@Deprecated
 public class OAuthClientCredentials {
 
 	@NotBlank

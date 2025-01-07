@@ -16,10 +16,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import de.egladil.web.commons_validation.ClientIdValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
-import de.egladil.web.commons_validation.ClientIdValidator;
 
 /**
  *

@@ -10,6 +10,7 @@ import de.egladil.web.commons_validation.annotations.UuidString;
 /**
  * KuerzelValidator
  */
+@Deprecated(forRemoval = true)
 public class UuidStringValidator extends AbstractWhitelistValidator<UuidString, String> {
 
 	private static final String REGEXP = "[a-zA-Z0-9\\-]*";

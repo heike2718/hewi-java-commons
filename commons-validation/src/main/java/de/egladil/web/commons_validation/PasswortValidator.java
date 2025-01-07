@@ -5,15 +5,15 @@
 
 package de.egladil.web.commons_validation;
 
-import jakarta.validation.ConstraintValidatorContext;
-
 import de.egladil.web.commons_validation.annotations.Passwort;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * PasswortValidator
  * (?=[^A-ZÄÖÜa-zäöüß]*[A-ZÄÖÜa-zäöüß])(?=[^\d]*[\d])[A-Za-z0-9ÄÖÜäöüß !"#\$%&'\(\)\*\+,\-\.\/:<=>\?@\[\]\^\\_ `'{|}~
  * ]{8,100}$
  */
+@Deprecated(forRemoval = true)
 public class PasswortValidator extends AbstractWhitelistValidator<Passwort, String> {
 
 	// private static final String REGEXP =

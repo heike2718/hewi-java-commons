@@ -20,7 +20,7 @@ public class XlsEncodingDetectorTest {
 	void should_detectEncodingReturnEmptyOptional() throws Exception {
 
 		// Arrange
-		File file = new File("/home/heike/mkv/upload/original-files/klassenlisten/klassenliste.xls");
+		File file = new File("/media/veracrypt1/mkv/upload/original-files/klassenlisten/klassenliste.xls");
 		assertTrue(file.isFile());
 		assertTrue(file.canWrite());
 		assertTrue(file.canRead());

@@ -17,7 +17,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-		<dependency-check.version>9.0.9</dependency-check.version>
+		<dependency-check.version>10.0.1</dependency-check.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.5.2</logback.version>
 		<mockito.version>3.9.0</mockito.version>

@@ -54,7 +54,7 @@ public class StringLatinValidator extends AbstractWhitelistValidator<StringLatin
 	@Override
 	protected String getWhitelist() {
 
-		return StringLatinConstants.NAME_WHITELIST_REGEXP;
+		return StringLatinConstants.INPUT_SECURED_WHITELIST;
 	}
 
 }

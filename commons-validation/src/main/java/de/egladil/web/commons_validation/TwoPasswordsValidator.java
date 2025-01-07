@@ -5,15 +5,15 @@
 
 package de.egladil.web.commons_validation;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-
 import de.egladil.web.commons_validation.annotations.ValidPasswords;
 import de.egladil.web.commons_validation.payload.TwoPasswords;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * RegistrationCredentialsValidator
  */
+@Deprecated(forRemoval = true)
 public class TwoPasswordsValidator implements ConstraintValidator<ValidPasswords, TwoPasswords> {
 
 	@Override

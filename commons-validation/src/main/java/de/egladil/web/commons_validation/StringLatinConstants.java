@@ -10,29 +10,23 @@ package de.egladil.web.commons_validation;
  */
 public interface StringLatinConstants {
 
-	String A1 = "ÄäÀàÁáÂâÃãĀāÅåĂăĄąǍǎǞǟǺǻẠạẪẫẬẢảẤấẦầẮắ\u00AA"; // für Sortierung auf der Bildschirmtastatur
-
-	// auseinandergenommen
-
-	String A2 = "ẰằẲẳẴẵẶặÆæǼǽ";
+	String A = "ÄäÀàÁáÂâÃãĀāÅåĂăĄąǍǎǞǟǺǻẠạẪẫẬẢảẤấẦầẮắ\u00AAẰằẲẳẴẵẶặÆæǼǽ";
 
 	String B = "Ḃḃ";
 
 	String C = "ÇçĆćĊċČč";
 
-	String D = "ÐðĎďĐđḊḋḐḑD\u0302d\u0302";
+	String D = "dÐðĎďĐđḊḋḐḑD\u0302d\u0302";
 
 	String E = "ÈèÉéÊêËëĒēĔĕĖėĘęĚěẼẽỄễẸẹẺẻỀềẾếỆệƏə";
 
-	String F = "Ḟḟ";
+	String F = "fḞḟ";
 
 	String G = "ĞğĠġĢģǤǥǦǧǴǵḠḡ";
 
 	String H = "ĦħȞȟḤḥḦḧ";
 
-	String I1 = "ÌìÍíÎîÏïĨĩĪī"; // für Sortierung auf der Bildschirmtastatur auseinandergenommen
-
-	String I2 = "ĬĭĮįİıǏǐỊịỈỉ";
+	String I = "ÌìÍíÎîÏïĨĩĪīĬĭĮįİıǏǐỊịỈỉ";
 
 	String J = "ĴĵǰJ\u030c";
 
@@ -44,13 +38,11 @@ public interface StringLatinConstants {
 
 	String N = "N\u0302n\u0302ÑñŃńŅņŇňŊŋṄṅŉ";
 
-	String O1 = "ÖöÒòÓóÔôÕõŌōŎŏŐőƠơǑǒ"; // für Sortierung auf der Bildschirmtastatur auseinandergenommen
+	String O = "ÖöÒòÓóÔôÕõŌōŎŏŐőƠơǑǒǪǫǬǭǾǿȪȫȮȯȰȱỌọỎỏỖỗºỒồỐốỘộỜờỚớØøŒœ";
 
-	String O2 = "ǪǫǬǭǾǿȪȫȮȯȰȱỌọỎỏỖỗºỒồỐốỘộỜờỚớØøŒœ";
+	String P = "PpṖṗ";
 
-	String P = "Ṗṗ";
-
-	String R = "ŔŕŖŗŘř";
+	String R = "ŖŗŘř";
 
 	String S = "ŚśŞşŠšȘșṠṡṢṣß\u1E9E";
 
@@ -70,35 +62,20 @@ public interface StringLatinConstants {
 
 	String Z = "ŹźŻżŽžẐẑẒẓ";
 
-	String DIACRITICS = A1 + A2 + B + C + D + E + F + G + H + I1 + I2 + J + K + L + M + N + O1 + O2 + P
+	String DIACRITICS = A + B + C + D + E + F + G + H + I + J + K + L + M + N + O + P
 		+ R + S + T + TH + U + W + X + Y1 + Y2 + Z;
-
-	// in der UI werden einige diakritische Zeichen nicht richtig dargestellt, da sie aus 2 UI-Zeichen zusammengesetzt
-	// sind.
-	// da das vermutlich niemandem auffällt, werden für die Bildschirmtastatur hier einige zulässige Zeichen entfernt
-	// Das sind genau die Zeichen, die auch in pkg_oasis_utils.transliterate Probleme machen.
-
-	String UI_D = "ÐðĎďĐđḊḋḐḑ";
-
-	String UI_J = "Ĵĵǰ";
-
-	String UI_L = "ĹĺĻļĽľĿŀŁł";
-
-	String UI_M = "Ṁṁ";
-
-	String UI_N = "ÑñŃńŅņŇňŊŋṄṅŉ";
 
 	String LATIN = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	String DIGITS = "0123456789";
 
-	/** alle Sonderzeichen */
-	String SPECIALS = "\" \\-_\\.,'`'\\@()/‘+:;=\\[\\]{}!#$§%&\\*\\?\\\\^|~°";
+	/** nur inkritische Sonderzeichen */
+	String SPECIALS = " \\-_\\.,'`'\\@()/‘+:;=\\[\\]{}!#$§%&\\*\\?\\\\^|~°";
 
 	/**
 	 * Alle Buchstaben und diakritischen Zeichen aus StringLatin, alle Ziffern, Leerzeichen, Minus, Unterstrich, Punkt, Komma,
 	 * Apostrophe
 	 */
-	String NAME_WHITELIST_REGEXP = "[" + LATIN + DIACRITICS + DIGITS + SPECIALS + "]*";
+	String INPUT_SECURED_WHITELIST = "[" + LATIN + DIACRITICS + DIGITS + SPECIALS + "]*";
 
 }

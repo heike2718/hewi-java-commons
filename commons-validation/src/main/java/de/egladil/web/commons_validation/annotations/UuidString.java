@@ -16,10 +16,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import de.egladil.web.commons_validation.UuidStringValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
-import de.egladil.web.commons_validation.UuidStringValidator;
 
 /**
  *
@@ -28,6 +27,7 @@ import de.egladil.web.commons_validation.UuidStringValidator;
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Constraint(validatedBy = { UuidStringValidator.class })
+@Deprecated(forRemoval = true)
 public @interface UuidString {
 
 	String message() default "{de.egladil.constraints.invalidChars}";
