@@ -13,19 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.shiro.codec.CodecSupport;
-import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.crypto.hash.SimpleHashRequest;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
+import org.apache.shiro.lang.util.ByteSource;
+import org.apache.shiro.lang.util.SimpleByteSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
+import de.egladil.web.commons_crypto.CryptoVersion;
 import de.egladil.web.commons_crypto.PasswordAlgorithm;
 import de.egladil.web.commons_crypto.PasswordAlgorithmBuilder;
 
@@ -62,7 +59,7 @@ public class CryptoServiceImplTest {
 		System.out.println("Base64-Hash=" + base64Hash);
 
 		// prüfen
-		assertTrue(service.verifyPassword(passworAlgorithm, password, base64Hash, base64Salt));
+		assertTrue(service.verifyPassword(passworAlgorithm, password, base64Hash, base64Salt, CryptoVersion.SHIRO_1));
 	}
 
 	@Test
@@ -83,7 +80,7 @@ public class CryptoServiceImplTest {
 
 		final Throwable ex = assertThrows(IllegalArgumentException.class, () -> {
 
-			service.verifyPassword(passworAlgorithm, password, "odgoqgod", base64Salt);
+			service.verifyPassword(passworAlgorithm, password, "odgoqgod", base64Salt, CryptoVersion.SHIRO_1);
 		});
 
 		assertEquals("password null oder leer", ex.getMessage());
@@ -160,38 +157,6 @@ public class CryptoServiceImplTest {
 
 			assertEquals(erstes[i], zweites[i], "Fehler bei " + i);
 		}
-	}
-
-	@Test
-	public void fullyConfiguredHasher() {
-
-		final ByteSource originalPassword = ByteSource.Util.bytes("Secret");
-
-		final byte[] baseSalt = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
-		final int iterations = 10;
-
-		final DefaultHashService hasher = new DefaultHashService();
-		hasher.setPrivateSalt(new SimpleByteSource(baseSalt));
-		hasher.setHashIterations(iterations);
-		hasher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-
-		// custom public salt
-		final byte[] publicSalt = { 1, 3, 5, 7, 9 };
-		final ByteSource salt = ByteSource.Util.bytes(publicSalt);
-
-		// use hasher to compute password hash
-		final HashRequest request = new SimpleHashRequest(hasher.getHashAlgorithmName(), originalPassword, salt,
-			hasher.getHashIterations());
-		final Hash response = hasher.computeHash(request);
-
-		final byte[] expectedHash = { -108, 19, -40, 8, 89, -59, 115, -4, 78, 48, 110, 115, -117, 54, -80, 72, 44, 22, -100, -24,
-			-23, -114, -24, -128, -95, -125, 2, -67, -40, 83, 90, -103 };
-		assertArrayEquals(expectedHash, response.getBytes());
-
-		final String expectedPwdHash = CodecSupport.toString(expectedHash);
-		final String actualPwdHash = CodecSupport.toString(response.getBytes());
-
-		assertEquals(expectedPwdHash, actualPwdHash);
 	}
 
 	@Nested

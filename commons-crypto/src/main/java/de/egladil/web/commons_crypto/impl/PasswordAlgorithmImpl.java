@@ -7,16 +7,18 @@ package de.egladil.web.commons_crypto.impl;
 
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.HashService;
 import org.apache.shiro.crypto.hash.SimpleHashRequest;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
+import org.apache.shiro.lang.util.ByteSource;
+import org.apache.shiro.lang.util.SimpleByteSource;
 
+import de.egladil.web.commons_crypto.CryptoVersion;
 import de.egladil.web.commons_crypto.PasswordAlgorithm;
 
 /**
@@ -28,7 +30,7 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
 	private final String algorithmName;
 
-	private final int numberIterations;
+	private final Map<String, Object> hashParameters = new HashMap<>();
 
 	/**
 	 * Erzeugt eine Instanz von PasswordAlgorithmImpl
@@ -52,16 +54,14 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
 		this.pepper = pepper;
 		this.algorithmName = algorithmName;
-		this.numberIterations = numberIterations;
+		hashParameters.put("iterations", Integer.valueOf(numberIterations));
 	}
 
 	@Override
-	public boolean verifyPassword(final char[] password, final String persistentHashValue, final String persistentSalt) {
+	public boolean verifyPassword(final char[] password, final String persistentHashValue, final String persistentSalt, final CryptoVersion cryptoVersion) {
 
 		final ByteSource salt = new SimpleByteSource(Base64.getDecoder().decode(persistentSalt));
-
 		final Hash expectedHash = hashPassword(password, salt);
-
 		final String expectedHashValue = new SimpleByteSource(expectedHash.getBytes()).toBase64();
 
 		if (MessageDigest.isEqual(expectedHashValue.getBytes(), persistentHashValue.getBytes())) {
@@ -69,6 +69,7 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 			return true;
 		}
 		return false;
+
 	}
 
 	@Override
@@ -80,9 +81,8 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 		}
 
 		final HashService hashService = getHashService();
-
 		final SimpleByteSource passwdByteSource = new SimpleByteSource(password);
-		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, numberIterations);
+		final HashRequest hashRequest = new SimpleHashRequest(algorithmName, passwdByteSource, salt, hashParameters);
 
 		final Hash hash = hashService.computeHash(hashRequest);
 		return hash;
@@ -90,8 +90,7 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 
 	private HashService getHashService() {
 
-		final DefaultHashService hashService = new DefaultHashService();
-		hashService.setPrivateSalt(new SimpleByteSource(pepper));
+		final PepperHashService hashService = new PepperHashService(algorithmName, pepper, hashParameters);
 		return hashService;
 	}
 

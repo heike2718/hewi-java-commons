@@ -14,10 +14,11 @@ import java.util.UUID;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.lang.util.ByteSource;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import de.egladil.web.commons_crypto.CryptoService;
+import de.egladil.web.commons_crypto.CryptoVersion;
 import de.egladil.web.commons_crypto.PasswordAlgorithm;
 import de.egladil.web.commons_crypto.exception.CommonCryptoException;
 import jakarta.enterprise.context.RequestScoped;
@@ -43,9 +44,9 @@ public class CryptoServiceImpl implements CryptoService {
 	}
 
 	@Override
-	public boolean verifyPassword(final PasswordAlgorithm algorithm, final char[] password, final String persistentHashValue, final String persistentSalt) {
+	public boolean verifyPassword(final PasswordAlgorithm algorithm, final char[] password, final String persistentHashValue, final String persistentSalt, final CryptoVersion cryptoVersion) {
 
-		return algorithm.verifyPassword(password, persistentHashValue, persistentSalt);
+		return algorithm.verifyPassword(password, persistentHashValue, persistentSalt, cryptoVersion);
 	}
 
 	@Override
