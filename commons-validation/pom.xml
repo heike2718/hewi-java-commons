@@ -84,8 +84,6 @@
 
 		<!-- Test -->
 
-		<!-- api muss dabei sein, damit das surefire-plugin die tests findet! -->
-
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>jakarta.el</artifactId>
