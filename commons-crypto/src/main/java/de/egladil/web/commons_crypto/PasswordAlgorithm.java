@@ -6,7 +6,7 @@
 package de.egladil.web.commons_crypto;
 
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.lang.util.ByteSource;
 
 /**
  * PasswordAlgorithm
@@ -24,7 +24,7 @@ public interface PasswordAlgorithm {
 	 *                             String das Base64-encodete Salt aus der DB
 	 * @return                     boolean
 	 */
-	boolean verifyPassword(char[] password, String persistentHashValue, String persistentSalt);
+	boolean verifyPassword(char[] password, String persistentHashValue, String persistentSalt, CryptoVersion cryptoVersion);
 
 	/**
 	 * Berechnet einen PasswordHash.
@@ -35,5 +35,7 @@ public interface PasswordAlgorithm {
 	 *                  ByteSource das Salz
 	 * @return          Hash
 	 */
-	Hash hashPassword(final char[] password, final ByteSource salt);
+	Hash hashPassword(final char[] password, final ByteSource salt, final CryptoVersion cryptpVersion);
+
+	String getPepper();
 }

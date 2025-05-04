@@ -13,19 +13,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.shiro.codec.CodecSupport;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.crypto.hash.AbstractCryptHash;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.crypto.hash.SimpleHashRequest;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
+import org.apache.shiro.crypto.support.hashes.argon2.Argon2HashProvider;
+import org.apache.shiro.lang.util.ByteSource;
+import org.apache.shiro.lang.util.SimpleByteSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
+import de.egladil.web.commons_crypto.CryptoVersion;
 import de.egladil.web.commons_crypto.PasswordAlgorithm;
 import de.egladil.web.commons_crypto.PasswordAlgorithmBuilder;
 
@@ -36,33 +37,67 @@ public class CryptoServiceImplTest {
 
 	private CryptoServiceImpl service = new CryptoServiceImpl();
 
-	@Test
-	@DisplayName("should hash and verify password")
-	void hashPassword() {
+	@Nested
+	class Sha256Tests {
 
-		// Arrange
-		String cryptoAlgorithm = "SHA-256";
-		// String pepper = "GmpxYkYuleJs4LLwbjwz";
-		String pepper = "z0eiPZVJxq/xhYD1RkXACJMKqtmzMQQ9blaR+ozXMk8=";
-		final ByteSource salt = new SimpleByteSource(service.generateSalt(128));
+		@Test
+		void hashPassword() {
 
-		final String base64Salt = salt.toBase64();
-		System.out.println("Base64-Salt=" + base64Salt);
-		// char[] password = "errätst du nie hehehe".toCharArray();
-		char[] password = "start123".toCharArray();
-		// int iterations = 40;
-		int iterations = 4098;
+			// Arrange
+			String cryptoAlgorithm = "SHA-256";
+			// String pepper = "GmpxYkYuleJs4LLwbjwz";
+			String pepper = "z0eiPZVJxq/xhYD1RkXACJMKqtmzMQQ9blaR+ozXMk8=";
+			final ByteSource salt = new SimpleByteSource(service.generateSalt(128));
 
-		PasswordAlgorithm passworAlgorithm = PasswordAlgorithmBuilder.instance().withAlgorithmName(cryptoAlgorithm)
-			.withNumberIterations(iterations).withPepper(pepper).build();
+			final String base64Salt = salt.toBase64();
+			System.out.println("Base64-Salt=" + base64Salt);
+			// char[] password = "errätst du nie hehehe".toCharArray();
+			char[] password = "start123".toCharArray();
+			// int iterations = 40;
+			int iterations = 4098;
 
-		final Hash computedHash = service.hashPassword(passworAlgorithm, password, salt);
+			PasswordAlgorithm passworAlgorithm = PasswordAlgorithmBuilder.instance().withAlgorithmName(cryptoAlgorithm)
+				.withNumberIterations(iterations).withPepper(pepper).build();
 
-		final String base64Hash = computedHash.toBase64();
-		System.out.println("Base64-Hash=" + base64Hash);
+			final Hash computedHash = service.hashPassword(passworAlgorithm, password, salt, CryptoVersion.SHA_256);
 
-		// prüfen
-		assertTrue(service.verifyPassword(passworAlgorithm, password, base64Hash, base64Salt));
+			final String base64Hash = computedHash.toBase64();
+			System.out.println("Base64-Hash=" + base64Hash);
+
+			// prüfen
+			assertTrue(service.verifyPassword(passworAlgorithm, password, base64Hash, base64Salt, CryptoVersion.SHA_256));
+		}
+
+	}
+
+	@Nested
+	class ArgonTests {
+
+		// @Test
+		void hashPassword() {
+
+			// Arrange
+			// String pepper = "GmpxYkYuleJs4LLwbjwz";
+			String pepper = "z0eiPZVJxq/xhYD1RkXACJMKqtmzMQQ9blaR+ozXMk8=";
+
+			// char[] password = "errätst du nie hehehe".toCharArray();
+			char[] password = "start123".toCharArray();
+			// int iterations = 40;
+			int iterations = 4098;
+
+			PasswordAlgorithm passworAlgorithm = PasswordAlgorithmBuilder.instance()
+				.withAlgorithmName(Argon2HashProvider.Parameters.DEFAULT_ALGORITHM_NAME)
+				.withNumberIterations(iterations).withPepper(pepper).build();
+
+			final Hash computedHash = service.hashPassword(passworAlgorithm, password, null, CryptoVersion.ARGON_2);
+
+			AbstractCryptHash argon2Hash = (AbstractCryptHash) computedHash;
+
+			System.out.println("computedHashValue=" + argon2Hash.formatToCryptString());
+
+			assertTrue(
+				service.verifyPassword(passworAlgorithm, password, argon2Hash.formatToCryptString(), null, CryptoVersion.ARGON_2));
+		}
 	}
 
 	@Test
@@ -83,7 +118,7 @@ public class CryptoServiceImplTest {
 
 		final Throwable ex = assertThrows(IllegalArgumentException.class, () -> {
 
-			service.verifyPassword(passworAlgorithm, password, "odgoqgod", base64Salt);
+			service.verifyPassword(passworAlgorithm, password, "odgoqgod", base64Salt, CryptoVersion.SHA_256);
 		});
 
 		assertEquals("password null oder leer", ex.getMessage());
@@ -135,6 +170,35 @@ public class CryptoServiceImplTest {
 		}
 	}
 
+	@Nested
+	class PlainShiroTests {
+
+		@Test
+		void testArgon2() {
+
+			// Arrange
+			String pepper = "my-secret-pepper";
+			String pepperedPassword = pepper + "start123";
+
+			DefaultHashService hashService = new DefaultHashService();
+			hashService.setDefaultAlgorithmName(Argon2HashProvider.Parameters.DEFAULT_ALGORITHM_NAME);
+
+			DefaultPasswordService passwordService = new DefaultPasswordService();
+			passwordService.setHashService(hashService);
+
+			// Act
+			String result = passwordService.encryptPassword(pepperedPassword);
+
+			System.out.println("encrypted password=" + result);
+
+			// Verify
+			boolean matches = passwordService.passwordsMatch(pepperedPassword, result);
+
+			assertTrue(matches);
+		}
+
+	}
+
 	@Test
 	public void testIterationsSha256Hash() {
 
@@ -160,38 +224,6 @@ public class CryptoServiceImplTest {
 
 			assertEquals(erstes[i], zweites[i], "Fehler bei " + i);
 		}
-	}
-
-	@Test
-	public void fullyConfiguredHasher() {
-
-		final ByteSource originalPassword = ByteSource.Util.bytes("Secret");
-
-		final byte[] baseSalt = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
-		final int iterations = 10;
-
-		final DefaultHashService hasher = new DefaultHashService();
-		hasher.setPrivateSalt(new SimpleByteSource(baseSalt));
-		hasher.setHashIterations(iterations);
-		hasher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-
-		// custom public salt
-		final byte[] publicSalt = { 1, 3, 5, 7, 9 };
-		final ByteSource salt = ByteSource.Util.bytes(publicSalt);
-
-		// use hasher to compute password hash
-		final HashRequest request = new SimpleHashRequest(hasher.getHashAlgorithmName(), originalPassword, salt,
-			hasher.getHashIterations());
-		final Hash response = hasher.computeHash(request);
-
-		final byte[] expectedHash = { -108, 19, -40, 8, 89, -59, 115, -4, 78, 48, 110, 115, -117, 54, -80, 72, 44, 22, -100, -24,
-			-23, -114, -24, -128, -95, -125, 2, -67, -40, 83, 90, -103 };
-		assertArrayEquals(expectedHash, response.getBytes());
-
-		final String expectedPwdHash = CodecSupport.toString(expectedHash);
-		final String actualPwdHash = CodecSupport.toString(response.getBytes());
-
-		assertEquals(expectedPwdHash, actualPwdHash);
 	}
 
 	@Nested

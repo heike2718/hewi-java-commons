@@ -6,7 +6,7 @@
 package de.egladil.web.commons_crypto;
 
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.lang.util.ByteSource;
 
 /**
  * CryptoService
@@ -26,7 +26,7 @@ public interface CryptoService {
 	 *                   ByteSource
 	 * @return           Hash
 	 */
-	Hash hashPassword(PasswordAlgorithm algorithm, char[] password, ByteSource salt);
+	Hash hashPassword(PasswordAlgorithm algorithm, char[] password, ByteSource salt, CryptoVersion cryptoVersion);
 
 	/**
 	 * Prüft das gegebene Passwort gegen das persistierte Passwort.<br>
@@ -43,7 +43,7 @@ public interface CryptoService {
 	 *                             String das Base64-encodete Salt aus der DB
 	 * @return                     boolean
 	 */
-	boolean verifyPassword(PasswordAlgorithm algorithm, char[] password, String persistentHashValue, String persistentSalt);
+	boolean verifyPassword(PasswordAlgorithm algorithm, char[] password, String persistentHashValue, String persistentSalt, CryptoVersion cryptoVersion);
 
 	/**
 	 * Generiert einen Zufallsstring gegeben Länge mit den Zeichen aus charPool. Basiert auf Random.
@@ -89,7 +89,7 @@ public interface CryptoService {
 	/**
 	 * Erzeugt eine SessionID
 	 *
-	 * @return      String
+	 * @return String
 	 */
 	String generateSessionId();
 

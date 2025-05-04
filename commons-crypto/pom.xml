@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.egladil.web</groupId>
 	<artifactId>commons-crypto</artifactId>
-	<version>2.0.2</version>
+	<version>3.0.0</version>
 	<packaging>jar</packaging>
 
 
@@ -61,38 +63,15 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
-			<version>1.13.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-event</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-cache</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-lang</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-config-ogdl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-crypto-cipher</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-crypto-hash</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.shiro</groupId>
-					<artifactId>shiro-config-core</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>2.0.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro.crypto</groupId>
+			<artifactId>shiro-hashes-argon2</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -209,9 +188,11 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
+							<!-- Sets the path to the file which contains the
+							execution data. -->
 							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
+							<!-- Sets the output directory for the code coverage
+							report. -->
 							<outputDirectory>target/jacoco-out</outputDirectory>
 						</configuration>
 					</execution>
@@ -222,7 +203,7 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
-<!--
+			<!--
 
 			<plugin>
 				<groupId>org.owasp</groupId>
