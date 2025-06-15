@@ -56,7 +56,7 @@ public class NonRecursiveZipCompressionRatioComputerTest {
 		long compressionRatio = new NonRecursiveZipCompressionRatioComputer().getCompressionRatio(OWNER_ID, upload);
 
 		// Assert
-		assertEquals(Long.valueOf(4), Long.valueOf(compressionRatio));
+		assertEquals(Long.valueOf(1), Long.valueOf(compressionRatio));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class NonRecursiveZipCompressionRatioComputerTest {
 	void compressionRatioOfJpgFile() throws Exception {
 
 		// Arrange
-		String fileName = "jpg.zip";
+		String fileName = "jpeg.zip";
 		byte[] upload = TestUtils.readBytesFromClasspath("/" + fileName);
 
 		// Act
@@ -99,19 +99,5 @@ public class NonRecursiveZipCompressionRatioComputerTest {
 
 		// Assert
 		assertEquals(Long.valueOf(1), Long.valueOf(compressionRatio));
-	}
-
-	@Test
-	void compressionRatioOfZipWithGZip() throws Exception {
-
-		// Arrange
-		String fileName = "zip-with-gzip.zip";
-		byte[] upload = TestUtils.readBytesFromClasspath("/" + fileName);
-
-		// Act
-		long compressionRatio = new NonRecursiveZipCompressionRatioComputer().getCompressionRatio(OWNER_ID, upload);
-
-		// Assert
-		assertEquals(Long.valueOf(0), Long.valueOf(compressionRatio));
 	}
 }

@@ -48,7 +48,7 @@ public interface CryptoService {
 	/**
 	 * Generiert einen Zufallsstring gegeben Länge mit den Zeichen aus charPool. Basiert auf Random.
 	 *
-	 * @param  laenge
+	 * @param  length
 	 *                  int die Länge. Muss mindestens gleich 6 sein.
 	 * @param  charPool
 	 *                  die verwendeten Zeichen. Muss Mindestlänge 26 haben.

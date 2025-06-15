@@ -274,7 +274,7 @@ public class MSSpreadSheetContentReaderTest {
 			} catch (OfficeToolsRuntimeException e) {
 
 				assertEquals(
-					"Fehler beim Lesen einer MSOffice-Datei: Cannot find zip signature within the file",
+					"Fehler beim Lesen einer MSOffice-Datei: No valid entries or contents found, this is not a valid OOXML (Office Open XML) file",
 					e.getMessage());
 			}
 

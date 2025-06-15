@@ -60,14 +60,14 @@ public class SizeLimitedOneEntryZipDecompressorTest {
 	void should_unzipSucceed() throws IOException {
 
 		// Arrange
-		byte[] data = TestUtils.readBytesFromClasspath("/jpg.zip");
+		byte[] data = TestUtils.readBytesFromClasspath("/jpeg.zip");
 		int maxSize = 67108864;
 
 		// Act
 		byte[] result = new SizeLimitedOneEntryZipDecompressor(maxSize).unzip("fqzdfqzu", data);
 
 		// Assert
-		assertEquals(1445910, result.length);
+		assertEquals(112306, result.length);
 
 	}
 

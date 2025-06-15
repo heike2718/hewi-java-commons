@@ -154,6 +154,10 @@ public class PasswordAlgorithmImpl implements PasswordAlgorithm {
 		HashRequest hashRequest = new SimpleHashRequest(algorithmName, bsPwd, bsSalt, parameters);
 		Hash expectedHash = this.computeHash(hashRequest);
 
+		if (expectedHash == null) {
+			throw new IllegalArgumentException("password null oder leer");
+		}
+
 		final String expectedHashValue = new SimpleByteSource(expectedHash.getBytes()).toBase64();
 
 		if (MessageDigest.isEqual(expectedHashValue.getBytes(), persistentHashValue.getBytes())) {
